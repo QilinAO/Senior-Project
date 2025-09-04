@@ -1,0 +1,38 @@
+%==================== chapter3_16.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ===== Helper for nicer row height (เฉพาะบล็อกนี้) =====
+{\renewcommand{\arraystretch}{1.15}
+	
+	% ========== ER: NOTIFICATIONS ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: Notifications}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				 \Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}        & รหัสการแจ้งเตือน & Long & PK \\
+				\Xhline{0.5pt}
+				\textbf{user\_id}   & ผู้ใช้ที่ได้รับ  & UUID & FK \\
+				\Xhline{0.5pt}
+				message            & ข้อความ & String & \\
+				\Xhline{0.5pt}
+				link\_to            & ลิงก์ & String & \\
+				\Xhline{0.5pt}
+				is\_read            & อ่านแล้วหรือไม่ & Boolean & \\
+				\Xhline{0.5pt}
+				type               & ประเภท & String & \\
+				\Xhline{1.5pt}
+			\end{tabularx}}
+	\end{table}

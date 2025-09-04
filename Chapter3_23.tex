@@ -1,0 +1,58 @@
+%==================== chapter3_23.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+% =================================== Class: AuthContext ========================
+\begin{table}[h]
+	\caption{Class Description : AuthContext}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & AuthContext \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & React Context สำหรับ Global State การยืนยันตัวตน เก็บ user, isAuthenticated และฟังก์ชัน signin/signout \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				user: ข้อมูลโปรไฟล์ผู้ใช้ปัจจุบัน \\
+				isAuthenticated: สถานะล็อกอิน (boolean)
+			\end{tabular} \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				signin(): เข้าสู่ระบบ \\
+				signout(): ออกจากระบบ
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ================================== Class: ProtectedRoute ======================
+\begin{table}[h]
+	\caption{Class Description : ProtectedRoute}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ProtectedRoute \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Higher-Order Component ทำหน้าที่ตรวจสอบสิทธิ์จาก AuthContext ก่อนอนุญาตให้เข้าถึงแต่ละ Route \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				requiredRole: บทบาทที่จำเป็นสำหรับการเข้าถึงหน้า
+			\end{tabular} \\
+			\Xhline{0.5pt}
+			\textbf{Method :} & - \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}

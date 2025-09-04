@@ -1,0 +1,131 @@
+%==================== chapter2.tex ====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begingroup
+% เนื้อหาบท: 16pt baseline ~19.2pt ตามสเปกเล่ม
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- หัวบท + เขียนสารบัญบทก่อนหัวข้อย่อย ----------
+\phantomsection
+\addcontentsline{toc}{chapter}{บทที่ 2 เอกสารที่เกี่ยวข้อง}
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont บทที่ 2}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- ชื่อบท ----------
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont เอกสารและงานวิจัยที่เกี่ยวข้อง}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\section*{เกณฑ์การตัดสินการประกวดปลากัดครีบสั้นในประเทศไทย}
+\addcontentsline{toc}{section}{เกณฑ์การตัดสินการประกวดปลากัดครีบสั้นในประเทศไทย}
+
+% ---------- เนื้อหา (จัดกระจายแบบไทย, ย่อหน้าแรก 1.5 ซม.) ----------
+\indent เกณฑ์การตัดสินการประกวดปลากัดครีบสั้นในประเทศไทย คณะกรรมการจะตัดสินความ
+สวยงามและความสมบูรณ์ของปลากัดครีบสั้นตามเกณฑ์มาตรฐานตรงตามสายพันธุ์และประเภทของ
+การประกวด ดังรายละเอียดต่อไปนี้
+
+\vspace{\baselineskip}
+
+% --- ตาราง: เกณฑ์การให้คะแนนปลากัดครีบสั้น ---
+\begingroup
+\renewcommand{\arraystretch}{1.2}
+\setlength{\arrayrulewidth}{0.5pt} % เส้นคั่นแถว 0.5pt
+
+\begin{table}[h]
+	
+	\caption{เกณฑ์การให้คะแนนปลากัดครีบสั้น}
+	\captionsetup[]{}
+	\centering
+	\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X
+			>{\centering\arraybackslash}p{2.5cm}
+			>{\centering\arraybackslash}p{3cm}@{}}
+		\Xhline{1.5pt} % เส้นบน 1.5pt
+		\bfseries ลักษณะ & \bfseries คะแนน & \bfseries คะแนนรวม \\
+		\hline
+		หัวและตา & 5 & 5 \\
+		\hline
+		ลำตัวและเกล็ด & 5 & 5 \\
+		\hline
+		ครีบหลัง (กระโดง) & 10 & 10 \\
+		\hline
+		ครีบหาง (หาง) & 15 & 15 \\
+		\hline
+		ครีบก้น (ชายน้ำ) & 10 & 10 \\
+		\hline
+		ครีบอื่น ๆ เช่น ครีบหู, ครีบอก (ตะเกียบ), แผ่นปิดเหงือก (เหงือก) & 5 & 5 \\
+		\hline
+		สี และลวดลาย & 20 & 20 \\
+		\hline
+		การทรงตัว และการว่ายน้ำ & 5 & 5 \\
+		\hline
+		การพองสู้ & 5 & 5 \\
+		\hline
+		ภาพรวม & 20 & 20 \\
+		\Xhline{0.5pt}
+		\bfseries คะแนนรวมทั้งสิ้น & \bfseries 100 & \bfseries 100 \\
+		\Xhline{1.5pt} % เส้นล่าง 1.5pt
+	\end{tabularx}
+	\caption*{ที่มา: อรุณี รอดลอย, 2018, 128 55}
+\end{table}
+\endgroup
+
+\newpage
+
+\vspace{\baselineskip}
+
+% --- ตาราง: เกณฑ์การให้คะแนนปลากัดครีบยาว (2 คอลัมน์) ---
+\begingroup
+\renewcommand{\arraystretch}{1.2}
+\setlength{\arrayrulewidth}{0.5pt} % เส้นคั่นแถว 0.5pt
+
+\begin{table}[h]
+	\captionsetup{justification=raggedright, singlelinecheck=false,
+		labelfont=bf, textfont=bf} % ชื่อตารางชิดซ้าย + ตัวหนา
+	\caption{เกณฑ์การให้คะแนนปลากัดครีบยาว}
+	\centering
+	\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X
+			>{\centering\arraybackslash}p{3cm}@{}}
+		\Xhline{1.5pt} % เส้นบน 1.5pt
+		\bfseries ลักษณะ & \bfseries คะแนน \\
+		\hline
+		หัวและตา & 5 \\
+		\hline
+		ลำตัวและเกล็ด & 5 \\
+		\hline
+		ครีบหลัง (กระโดง) & 10 \\
+		\hline
+		ครีบหาง (หาง) & 15 \\
+		\hline
+		ครีบก้น (ชายน้ำ) & 10 \\
+		\hline
+		ครีบอื่น ๆ เช่น ครีบหู, ครีบอก (ตะเกียบ), แผ่นปิดเหงือก (เหงือก) & 5 \\
+		\hline
+		สี และลวดลาย & 20 \\
+		\hline
+		การทรงตัว และการว่ายน้ำ & 5 \\
+		\hline
+		การพองสู้ & 5 \\
+		\hline
+		ภาพรวม & 20 \\
+		\Xhline{0.5pt}
+		\bfseries คะแนนรวมทั้งสิ้น & \bfseries 100 \\
+		\Xhline{1.5pt} % เส้นล่าง 1.5pt
+	\end{tabularx}
+	\caption*{ที่มา: อรุณี รอดลอย, 2018, 128 56}
+\end{table}
+\endgroup
+
+
+\clearpage

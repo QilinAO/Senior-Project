@@ -1,0 +1,145 @@
+%==================== chapter1_1.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- วัตถุประสงค์ของงานวิจัย ----------
+\section*{วัตถุประสงค์ของงานวิจัย}
+\addcontentsline{toc}{section}{วัตถุประสงค์ของงานวิจัย}
+\indent 1.\,พัฒนาแพลตฟอร์มที่เป็นศูนย์รวมการจัดประกวดปลากัดไทยบนเว็บแอปพลิเคชัน
+
+\vspace{\baselineskip} % เว้น 1 บรรทัด
+
+% ---------- ขอบเขตของงานวิจัย ----------
+\section*{ขอบเขตของงานวิจัย}
+\addcontentsline{toc}{section}{ขอบเขตของงานวิจัย}
+
+\indent งานวิจัยนี้มุ่งเน้นการออกแบบและพัฒนาเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย
+โดยใช้หลักการ Responsive Design รองรับการใช้งานทุกแพลตฟอร์ม โดยมีขอบเขตดังนี้
+
+% ===== รูปแบบ enumerate ให้ตรงสเปกเดิม (พร้อมตัวแปรครบ) =====
+% ต้องมี \usepackage{enumitem}
+
+% กำหนดค่าแต่ละตัว
+\setlength{\LoneLabelSep}{0.5em}                                 % ระยะเลขกับข้อความ (ระดับ 1)
+\settowidth{\LoneLabelWidth}{9.}                                 % กว้างพอ "9."
+\setlength{\LoneContentCol}{\dimexpr 1.5cm + \LoneLabelWidth + \LoneLabelSep\relax}
+
+\setlength{\LtwoLabelSep}{0.5em}                                 % ระยะเลขกับข้อความ (ระดับ 2)
+\settowidth{\LtwoLabelWidth}{9.9.}                               % กว้างพอ "9.9."
+\setlength{\ExtraAlign}{-2.8em}                                  % ปรับชิดเพิ่ม/ลดตามต้องการ
+
+\setlength{\LthreeLabelSep}{0.5em}                               % ระยะเลขกับข้อความ (ระดับ 3)
+\settowidth{\LthreeLabelWidth}{9.9.9.}                           % กว้างพอ "9.9.9."
+\setlength{\NestedStep}{2em}                                     % ให้ระดับ 3 ลึกกว่า level 2 อีก 2em (ปรับได้)
+
+% ระดับ 1
+\setlist[enumerate,1]{%
+	label=\arabic*., align=left,
+	leftmargin=1.5cm, labelindent=0pt,
+	labelwidth=\LoneLabelWidth, labelsep=\LoneLabelSep,
+	itemsep=0pt, topsep=0.5\baselineskip
+}
+
+% ระดับ 2 (ชิฟต์ด้วย \ExtraAlign ให้ตรงสเปกเดิม)
+\setlist[enumerate,2]{%
+	label*=\arabic*., align=left,
+	leftmargin=*,
+	labelwidth=\LtwoLabelWidth, labelsep=\LtwoLabelSep,
+	labelindent=\dimexpr \LoneContentCol + \ExtraAlign - \LtwoLabelWidth - \LtwoLabelSep\relax,
+	itemsep=0pt, topsep=0pt
+}
+
+% ระดับ 3 (จุดเริ่มข้อความ = \LoneContentCol + \ExtraAlign + \NestedStep)
+\setlist[enumerate,3]{%
+	label*=\arabic*., align=left,
+	leftmargin=*,
+	labelwidth=\LthreeLabelWidth, labelsep=\LthreeLabelSep,
+	labelindent=\dimexpr \LoneContentCol + \ExtraAlign + \NestedStep
+	- \LthreeLabelWidth - \LthreeLabelSep\relax,
+	itemsep=0pt, topsep=0pt
+}
+
+\begin{enumerate}
+	\item ผู้ใช้งานที่ไม่มีบัญชีผู้ใช้งาน
+	\begin{enumerate}
+		\item สามารถลงทะเบียนสมัครสมาชิกได้
+		\item สามารถเข้าชมข่าวสารเกี่ยวกับการแข่งขันหรือข้อมูลอื่น ๆ ได้
+	\end{enumerate}
+	
+	\item ผู้เลี้ยงปลากัด
+	\begin{enumerate}
+		\item ลงทะเบียนและจัดการบัญชีผู้ใช้งานของตนเอง
+		\item อัปโหลดข้อมูลปลากัด เช่น รูปภาพและรายละเอียดต่าง ๆ
+		\item ขอรับบริการประเมินคุณภาพปลากัดโดยผู้เชี่ยวชาญ
+		\item ติดตามผลการประเมินและประวัติการประเมิน
+		\item รับการแจ้งเตือนกิจกรรมและข้อมูลใหม่จากระบบ
+		\item เข้าร่วมการประกวดปลากัด
+	\end{enumerate}
+	
+	\item ผู้จัดการประกวดปลากัด
+	\begin{enumerate}
+		\item เพิ่มรายละเอียดการจัดการประกวด
+		\item ลงทะเบียนและจัดการบัญชีผู้ใช้งาน
+		\item กำหนดการจัดประกวดปลากัดไทย
+		\item กำหนดกรรมการตัดสินในการประกวดแต่ละครั้ง
+		\item ประกาศผลการแข่งขัน
+		\item ดูประวัติการจัดการประกวด
+		\item ดูผลคะแนนการแข่งขันทั้งหมดของผู้เลี้ยงปลากัด
+	\end{enumerate}
+	
+	\item ผู้เชี่ยวชาญด้านปลากัด
+	\begin{enumerate}
+		\item ลงทะเบียนและจัดการโปรไฟล์ผู้เชี่ยวชาญ
+		\item ตรวจสอบข้อมูลปลากัดที่ถูกอัปโหลดโดยผู้เลี้ยง
+		\item ให้บริการประเมินคุณภาพปลากัดและบันทึกผลการประเมิน
+		\item เข้าร่วมการประเมินแบบกลุ่มและกิจกรรมออนไลน์
+	\end{enumerate}
+\newpage
+	\item ผู้บริหารจัดการข้อมูล
+	\begin{enumerate}
+		\item ดูแลและจัดการระบบทั้งหมด
+		\item จัดการข้อมูลผู้ใช้งาน เช่น การปรับปรุงและลบข้อมูล
+		\item ติดตามผลการประเมินและกิจกรรมต่าง ๆ ภายในระบบ
+		\item จัดการการแจ้งเตือนและข้อมูลสำคัญของระบบ
+	\end{enumerate}
+\end{enumerate}
+
+% --- เว้น 1 บรรทัด ---
+\vspace{\baselineskip}
+
+% ---------- แนวคิดและหลักการ ----------
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont แนวคิดและหลักการ}\par
+\indent แนวคิดและหลักการของการพัฒนาเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย
+คือการสร้างแพลตฟอร์มที่สามารถเชื่อมโยงผู้เลี้ยงปลากัด ผู้เชี่ยวชาญ และผู้จัดการประกวดเข้าด้วยกันอย่างมีประสิทธิภาพ
+โดยมีเป้าหมายเพื่อเพิ่มความสะดวกในการเข้าถึงบริการต่าง ๆ เช่น การประเมินคุณภาพปลากัด การให้คำปรึกษาด้านการเพาะพันธุ์
+และการติดตามผลการประกวด ระบบจะรองรับการใช้งานทั้งบนอุปกรณ์พกพาและเว็บเบราว์เซอร์ โดยใช้หลักการออกแบบแบบ
+Responsive Design เพื่อให้ผู้ใช้งานสามารถเข้าถึงข้อมูลและบริการได้ทุกที่ทุกเวลา
+
+% --- เว้น 1 บรรทัด ---
+\vspace{\baselineskip}
+
+% ---------- เครื่องมือที่ใช้ในการพัฒนาโปรแกรม ----------
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont เครื่องมือที่ใช้ในการพัฒนาโปรแกรม}\par
+
+\begin{enumerate}
+	\item คอมพิวเตอร์ส่วนบุคคล (Personal Computer)
+	\begin{enumerate}
+		\item Device name: MacBook Air (M1, 2020)
+		\item Processor: Apple M1 chip, 8-core CPU (4 performance cores,\\4 efficiency cores)
+		\item Installed RAM: 8 GB unified memory
+		\item System type: 64-bit operating system, ARM-based processor
+	\end{enumerate}
+\end{enumerate}
+
+\par\endgroup
+\clearpage
+\clearpage
+%================== จบ chapter1_1.tex ====================

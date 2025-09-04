@@ -1,0 +1,30 @@
+%==================== toc.tex (ฉบับแก้ไขใหม่) ====================
+\clearpage
+%\thispagestyle{empty} % หากไม่ต้องการเลขหน้าในหน้าสารบัญ ให้เอา % ออก
+
+% --- 1. ปิดการสร้างหัวข้ออัตโนมัติของ tocloft ---
+% เราจะสร้างหัวข้อเอง จึงสั่งให้ tocloft ไม่ต้องแสดงผลอะไร
+\renewcommand{\cfttoctitlefont}{\null}
+\renewcommand{\cftaftertoctitle}{\null}
+
+% --- 2. สร้างหัวข้อสารบัญด้วยตนเอง ---
+{%
+	\fontsize{16pt}{19.2pt}\selectfont % กำหนดขนาดฟอนต์
+	\noindent\bfseries\centerline{สารบัญ} % "สารบัญ" ตัวหนา กึ่งกลาง
+	\noindent\hfill หน้า\par % "หน้า" ชิดขวา บรรทัดถัดมา
+	\vspace{0.5\baselineskip} % เว้นระยะเล็กน้อยก่อนเริ่มรายการสารบัญ
+}
+
+% --- 3. คงการตั้งค่ารูปแบบรายการในสารบัญ (เหมือนเดิม) ---
+\renewcommand{\cftchapfont}{\fontsize{16pt}{19.2pt}\selectfont}
+\renewcommand{\cftchappagefont}{\fontsize{16pt}{19.2pt}\selectfont}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapindent}{0pt}
+\renewcommand{\cftchapnumwidth}{0pt}
+\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftchapindent}{0pt}
+
+% --- 4. สร้างสารบัญ ---
+\tableofcontents
+
+%================== จบ toc.tex ==================

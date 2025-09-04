@@ -1,0 +1,81 @@
+%==================== chapter3_22.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+% =============================== Class: [Role]ServiceFE ========================
+\begin{table}[h]
+	\caption{Class Description : [Role]ServiceFE (เช่น ManagerServiceFE, ExpertServiceFE)}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & [Role]ServiceFE \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & กลุ่ม Service ฝั่ง Frontend แยก Logic การเรียกใช้ API ตามบทบาทผู้ใช้ เพื่อให้ Component ไม่เรียก ApiService โดยตรง \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				getMyContests(): เรียก ApiService.get ไปยัง endpoint ของ Manager \\
+				getEvaluationQueue(): เรียก ApiService.get ไปยัง endpoint ของ Expert
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================ Class: [Page/Component] ==========================
+\begin{table}[h]
+	\caption{Class Description : [Page/Component] (เช่น LiveContestRoom, EvaluationQueue)}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & [Page/Component] \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Component แสดงผล UI สำหรับบทบาทต่าง ๆ โดยเรียกใช้ Service (FE) ที่เกี่ยวข้องเพื่อนำข้อมูลมาแสดงและส่งกลับ Backend \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				selectedContest / queue: state สำหรับเก็บข้อมูลที่ดึงมา
+			\end{tabular} \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				handle...(): ฟังก์ชันจัดการเหตุการณ์จากผู้ใช้ (เช่น คลิก) และเรียกใช้ Service
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================= Class: SubmissionFormModal ======================
+\begin{table}[h]
+	\caption{Class Description : SubmissionFormModal}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & SubmissionFormModal \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Modal สำหรับรับข้อมูลการส่งปลากัดจากผู้ใช้ จัดการ state ของรูปภาพ วิดีโอ และข้อมูลในฟอร์ม \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				images: state สำหรับเก็บไฟล์รูปภาพ \\
+				video: state สำหรับเก็บไฟล์วิดีโอ
+			\end{tabular} \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				onSubmit(): เรียกใช้เมื่อผู้ใช้ยืนยันการส่งข้อมูล โดยจะเรียก UserServiceFE \\และ ModelServiceFE
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}

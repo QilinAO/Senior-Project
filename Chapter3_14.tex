@@ -1,0 +1,48 @@
+%==================== chapter3_14.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ===== Helper for nicer row height (เฉพาะบล็อกนี้) =====
+{\renewcommand{\arraystretch}{1.15}
+	
+	% ========== ER: SUBMISSIONSsts ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: Submissions}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				\Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}             & รหัสผลงาน & UUID & PK \\
+				\Xhline{0.5pt}
+				\textbf{owner\_id}       & เจ้าของผลงาน & UUID & FK \\
+				\Xhline{0.5pt}
+				\textbf{contest\_id}     & อ้างถึงการประกวด & UUID & FK \\
+				\Xhline{0.5pt}
+				fish\_name               & ชื่อปลา & String & \\
+				\Xhline{0.5pt}
+				fish\_type               & ประเภทปลา & String & \\
+				\Xhline{0.5pt}
+				fish\_age\_months         & อายุ (เดือน) & Integer & \\
+				\Xhline{0.5pt}
+				fish\_image\_urls         & ลิงก์รูปภาพ (หลายรูป) & Array & \\
+				\Xhline{0.5pt}
+				fish\_video\_url          & ลิงก์วิดีโอ & String & \\
+				\Xhline{0.5pt}
+				status                  & สถานะผลงาน (เช่น pending, assigned, scored) & String & \\
+				\Xhline{0.5pt}
+				submitted\_at            & เวลาที่ส่ง & Timestamp & \\
+				\Xhline{0.5pt}
+				final\_score             & คะแนนสุดท้าย & Decimal & \\
+				\Xhline{1.5pt}
+			\end{tabularx}}
+	\end{table}

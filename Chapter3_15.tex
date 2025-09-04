@@ -1,0 +1,67 @@
+%==================== chapter3_15.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ===== Helper for nicer row height (เฉพาะบล็อกนี้) =====
+{\renewcommand{\arraystretch}{1.15}
+	
+	% ========== ER: ASSIGNMENTS ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: Assignments}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				\Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}             & รหัสการประเมิน & Long & PK \\
+				\Xhline{0.5pt}
+				\textbf{submission\_id}  & อ้างถึงผลงาน  & UUID & FK \\
+				\Xhline{0.5pt}
+				\textbf{evaluator\_id}   & ผู้ประเมิน/ผู้เชี่ยวชาญ  & UUID & FK \\
+				\Xhline{0.5pt}
+				status                  & สถานะ (เช่น assigned, scored) & String & \\
+				\Xhline{0.5pt}
+				scores                  & รายละเอียดคะแนน (เช่นรายหัวข้อ) & JSON & \\
+				\Xhline{0.5pt}
+				total\_score             & คะแนนรวม & Decimal & \\
+				\Xhline{0.5pt}
+				assigned\_at             & เวลามอบหมาย & Timestamp & \\
+				\Xhline{0.5pt}
+				evaluated\_at            & เวลาประเมินเสร็จ & Timestamp & \\
+				\Xhline{1.5pt}
+			\end{tabularx}}
+	\end{table}
+	
+\vspace{\baselineskip}
+	
+	% ========== ER: CONTEST_JUDGES ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: CONTEST\_JUDGES}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				\Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}          & รหัสกรรมการในการประกวด & Long & PK \\
+				\Xhline{0.5pt}
+				\textbf{judge\_id}    & กรรมการ  & UUID & FK \\
+				\Xhline{0.5pt}
+				\textbf{contest\_id}  & การประกวด  & UUID & FK \\
+				\Xhline{0.5pt}
+				status               & สถานะการตอบรับ & String & \\
+				\Xhline{0.5pt}
+				assigned\_at          & เวลาที่เชิญ & Timestamp & \\
+				\Xhline{1.5pt}
+			\end{tabularx}}
+	\end{table}
+\clearpage

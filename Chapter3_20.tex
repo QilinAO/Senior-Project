@@ -1,0 +1,74 @@
+%==================== chapter3_20.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+% ========================= Class: SubmissionController ==========================
+\begin{table}[h]
+	\caption{Class Description : SubmissionController}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & SubmissionController \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Controller จุดรับ Endpoint สำหรับการส่งปลากัดเข้าระบบ ทั้งแบบประเมินคุณภาพและแบบเข้าร่วมการแข่งขัน \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				createEvaluationSubmission(req, res): ส่งปลากัดเพื่อประเมินคุณภาพ \\
+				createCompetitionSubmission(req, res): ส่งปลากัดเพื่อเข้าร่วมการแข่งขัน
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================== Class: SubmissionService =======================
+\begin{table}[h]
+	\caption{Class Description : SubmissionService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & SubmissionService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service จัดการ Logic การสร้าง Submission ลงในฐานข้อมูล ทำหน้าที่เป็นตัวกลางก่อนมอบหมายงานต่อไป \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				createSubmission(params): สร้างข้อมูล Submission ใหม่ในตาราง submissions
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================== Class: ModelApiService =========================
+\begin{table}[h]
+	\caption{Class Description : ModelApiService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ModelApiService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service สำหรับเชื่อมต่อกับ External AI Model (Hugging Face) เพื่อวิเคราะห์ประเภทปลากัดจากรูปภาพที่ผู้ใช้อัปโหลด \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				predictBettaType(imageBuffer): ส่งรูปภาพ (Buffer) ไปยัง Model API และรับผลการ\\วิเคราะห์
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}

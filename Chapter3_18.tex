@@ -1,0 +1,78 @@
+%==================== chapter3_18.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+% ============================ Class: AdminController ============================
+\begin{table}[h]
+	\caption{Class Description : AdminController}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & AdminController \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Controller ทำหน้าที่เป็นจุดรับ Endpoint ของ Admin จัดการ Request ที่เกี่ยวกับการดูแลระบบทั้งหมด และเรียกใช้ AdminService เพื่อจัดการ Logic \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				getAllUsers(req, res): รับคำขอเพื่อดึงข้อมูลผู้ใช้ทั้งหมด \\
+				createUser(req, res): รับคำขอเพื่อสร้างผู้ใช้ใหม่
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================== Class: AdminService =============================
+\begin{table}[h]
+	\caption{Class Description : AdminService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & AdminService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service ที่รวบรวม Logic การจัดการข้อมูลสำหรับ Admin ทั้งหมด โดยจะติดต่อกับฐานข้อมูลผ่าน SupabaseAdmin โดยตรง \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				getAllUsers(): ดึงข้อมูลผู้ใช้ทั้งหมดจากฐานข้อมูล \\
+				createUser(userData): สร้างผู้ใช้ใหม่ในระบบ Authentication และสร้างโปรไฟล์ในฐานข้อมูล
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% =========================== Class: ManagerController ===========================
+\begin{table}[h]
+	\caption{Class Description : ManagerController}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ManagerController \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Controller จุดรับ Endpoint ของ Manager จัดการคำขอที่เกี่ยวกับการสร้างและจัดการการประกวด/ข่าวสาร \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				createContestOrNews(req, res): รับคำขอสร้างการประกวดหรือข่าวสารใหม่ \\
+				assignJudgeToContest(req, res): รับคำขอมอบหมายกรรมการให้กับการประกวด
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+\clearpage

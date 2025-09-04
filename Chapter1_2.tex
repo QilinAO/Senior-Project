@@ -1,0 +1,57 @@
+%==================== chapter1_2.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+% ฟอนต์เนื้อหา 16pt baseline ~19.2pt
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- โปรแกรมที่ใช้ในการพัฒนา ----------
+\section*{โปรแกรมที่ใช้ในการพัฒนา}
+\addcontentsline{toc}{section}{โปรแกรมที่ใช้ในการพัฒนา}
+
+% ตั้งค่าให้เหมือนสเปกเดิมทุกบท
+\setlength{\LoneLabelSep}{0.5em}
+\settowidth{\LoneLabelWidth}{9.}
+\setlength{\LoneContentCol}{\dimexpr 1.5cm + \LoneLabelWidth + \LoneLabelSep\relax}
+
+\setlength{\LtwoLabelSep}{0.5em}
+\settowidth{\LtwoLabelWidth}{9.9.}
+\setlength{\ExtraAlign}{-2.8em}
+
+% ระดับ 1: อินเดนต์ 1.5 ซม.
+\setlist[enumerate,1]{%
+	label=\arabic*., align=left,
+	leftmargin=1.5cm, labelindent=0pt,
+	labelwidth=\LoneLabelWidth, labelsep=\LoneLabelSep,
+	itemsep=0pt, topsep=0.5\baselineskip
+}
+
+% (เผื่อมีระดับ 2 ในหน้านี้ภายหลัง) จัดคอลัมน์เหมือนบทก่อน
+\setlist[enumerate,2]{%
+	label*=\arabic*., align=left,
+	leftmargin=*,
+	labelwidth=\LtwoLabelWidth, labelsep=\LtwoLabelSep,
+	labelindent=\dimexpr \LoneContentCol + \ExtraAlign - \LtwoLabelWidth - \LtwoLabelSep\relax,
+	itemsep=0pt, topsep=0pt
+}
+
+\begin{enumerate}
+	\item Visual Studio Code
+	\item React
+	\item Supabase
+	\item Axios
+	\item Express
+	\item React Testing Library
+	\item Figma
+\end{enumerate}
+
+\par\endgroup
+\clearpage
+
+%================== จบ chapter1_2.tex ====================

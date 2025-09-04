@@ -1,0 +1,78 @@
+%==================== chapter3_7.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ================== Use Case กำหนดกรรมการในการตัดสิน ==================
+\begin{table}[h]
+	\caption{Use Case กำหนดกรรมการในการตัดสิน}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace กำหนดกรรมการในการตัดสิน & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้จัดการประกวด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace กำหนดผู้เชี่ยวชาญเพื่อให้มาเป็นกรรมการในการตัดสินในแต่ ครั้งและกำหนด จำนวนกรรมการว่ากรรมการในการตัดสินการแข่งขันนี้ทั้งหมดกี่คน & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case ประกาศผลการแข่งขัน ==================
+\begin{table}[h]
+	\caption{Use Case ประกาศผลการแข่งขัน}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace ประกาศผลการแข่งขัน & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้จัดการประกวด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace ทำการประกาศผลคะแนนการแข่งขันตามที่กรรมการได้ให้คะแนนไว้ & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 1:}\enspace กรรมการต้องทำการให้คะแนนการประเมินก่อนถึงจะสามารถประกาศผลการแข่งได้ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case ดูผลคะแนนการแข่งขัน ==================
+\begin{table}[h]
+	\caption{Use Case ดูผลคะแนนการแข่งขัน}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace ดูผลคะแนนการแข่งขัน & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้จัดการประกวด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace สามารถดูผลคะแนนที่กรรมการทำการให้คะแนน & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 1:}\enspace ผู้จัดการประกวดต้องทราบผลคะแนนที่กรรมให้คะแนนได้ก่อนถึงจะทำการประกาศผู้ทื่ชนะ
+			ในการแข่งขันนั้นได้ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+\clearpage

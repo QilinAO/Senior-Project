@@ -1,0 +1,80 @@
+%==================== chapter3_2.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ================== Use Case: Register ==================
+\begin{table}[h]
+	\caption{Use Case สมัครสมาชิก}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace สมัครสมาชิก & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้เลี้ยงปลากัด, ผู้จัดการประกวด, ผู้เชี่ยวชาญด้านปลากัด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace ผู้ใช้ที่ยังไม่มีบัญชีเข้าใช้งาน สามารถสมัครสมาชิกเพื่อเข้าใช้งานระบบได้ & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 1:}\enspace กรณีผู้ใช้กรอกข้อมูลไม่ครบถ้วนหรือไม่ตรงตามเงื่อนไข ระบบจะทำการแจ้งข้อความเตือน & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 2:}\enspace กรณีที่ผู้ใช้มีบัญชีอยู่แล้ว ระบบจะทำการแจ้งเตือนให้ทราบ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case ขอรับบริการประเมิณคุณภาพปลากัดจากผู้เชี่ยวชาญ ==================
+\begin{table}[h]
+	\caption{Use Case ขอรับบริการประเมิณคุณภาพปลากัดจากผู้เชี่ยวชาญ}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace ขอรับบริการประเมิณคุณภาพปลากัดจากผู้เชี่ยวชาญ & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้เลี้ยงปลากัด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace ผู้ใช้สามารถขอรับบริการประเมินคุณภาพปลากัดปลากัดเพื่อประประเมินคุณภาพปลากัดของผู้เลี้ยงได้
+			จากผู้เชี่ยวชาญ & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 1:}\enspace ผู้ใช้ต้องทำการอัปโหลดข้อมูลเกี่ยวกับปลากัดเข้ามาก่อนถึงจะสามารถส่งไปให้ผู้เชี่ยวประเมินคุณภาพให้ได้ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case อัปโหลดรูปภาพ/วิดีโอ ==================
+\begin{table}[h]
+	\caption{Use Case อัปโหลดรูปภาพ/วิดีโอ}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace อัปโหลดรูปภาพ/วิดีโอ & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้เลี้ยงปลากัด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace ทำการเพิ่มรูปภาพ/วิดีโอ ลงบนเว็บแอพพลิเคชันเพื่อทำการประเมินผลคะแนนโดยวิธีการต่างๆ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+\clearpage

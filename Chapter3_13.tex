@@ -1,0 +1,48 @@
+%==================== chapter3_13.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ===== Helper for nicer row height (เฉพาะบล็อกนี้) =====
+{\renewcommand{\arraystretch}{1.15}
+	
+	% ========== ER: Contests ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: Contests}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				\Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}            & รหัสการประกวด & UUID & PK \\
+				\Xhline{0.5pt}
+				name                   & ชื่อการประกวด & String & \\
+				\Xhline{0.5pt}
+				short\_description      & คำอธิบายย่อ & String & \\
+				\Xhline{0.5pt}
+				full\_description       & คำอธิบายเต็ม & String & \\
+				\Xhline{0.5pt}
+				poster\_url             & ลิงก์โปสเตอร์/ภาพประชาสัมพันธ์ & String & \\
+				\Xhline{0.5pt}
+				category               & หมวดหมู่ & String & \\
+				\Xhline{0.5pt}
+				start\_date             & วันเริ่ม & Timestamp & \\
+				\Xhline{0.5pt}
+				end\_date               & วันสิ้นสุด & Timestamp & \\
+				\Xhline{0.5pt}
+				status                 & สถานะการประกวด (เช่น draft, open, closed) & String & \\
+				\Xhline{0.5pt}
+				is\_vote\_open           & เปิดโหวตหรือไม่ & Boolean & \\
+				\Xhline{0.5pt}
+				\textbf{created\_by}    & ผู้สร้างการประกวด & UUID & FK \\
+				\Xhline{1.5pt}
+			\end{tabularx}}
+	\end{table}

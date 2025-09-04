@@ -1,0 +1,64 @@
+%==================== chapter3_28.tex ====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- หัวบท + เขียนสารบัญบทก่อนหัวข้อย่อย ----------
+\phantomsection
+\addcontentsline{toc}{chapter}{บทที่ 5 บทสรุป}
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont บทที่ 5}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- ชื่อบท ----------
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont บทสรุป}
+\end{center}
+
+\vspace{\baselineskip}
+
+\indent จากการศึกษาค้นคว้า เรื่องเว็บ แอปพลิเคชัน ศูนย์ รวมการจัด ประกวดปลากัด ไทย และมี
+การนำ Ai มาใช้ในการช่วยตรวจสอบประเภทปลากัด ว่าเป็นปลากัดประเภทไหน โดยมีวัตถุประสงค์
+เพื่อ พัฒนาระบบเว็บ แอปพลิเคชัน ศูนย์ รวมการจัด ประกวดปลากัด ไทย โดยเราได้ ศึกษาและพัฒนา
+ระบบเป็น Web Application โดยใช้ React, Visual Studio code, Supabase
+การสร้างโมเดลจาก ResNet-50 เป็นการนำมาใช้ ในการสร้างต้นแบบบน Web App
+Appication เนื่องจากมีการสนับสนุนร่วมกับ React,Node.js,Express โดย Web App Appication
+สามารถทำการแยกประเภทปลากัด ได้ 3 ประเภทในตอนนี้สามารถทำการจำแนกได้โดยการอัปโหลดรูปภาพ 3 รูปภาพแต่เราเอารูปภาพรูปแรกเพื่อให้โมเดลดูว่าคือปลากัดประเภทไหน
+
+\vspace{\baselineskip}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\section*{ปัญหาและอุปสรรค}
+\addcontentsline{toc}{section}{ปัญหาและอุปสรรค}
+
+\begin{sloppypar}
+	\begin{enumerate}
+		\item แหล่งข้อมูลในการทำ Dataset ที่เป็นรูปภาพปลากัดของแต่ละประเภท หาได้ค่อนข้างยากเพราะ
+		ต้องใช้ภาพจำนวนมากต่อปลา 1 ตัว จึงต้องทำการขออณุญาตใช้ภาพจากกลุ่ม Facebook ชุมชน
+		คนเลี้ยงปลากัด ที่อนุเคราะห์ให้ภาพปลากัดมาทำ Dataset
+	\end{enumerate}
+\end{sloppypar}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\section*{ข้อเสนอแนะ}
+\addcontentsline{toc}{section}{ข้อเสนอแนะ}
+
+\begin{sloppypar}
+	\begin{enumerate}
+		\item Web Application ทำให้สามารถรับชำระเงินค่าสมัครการเข้าร่วมการประกวด
+		\item Web Application เปรียบเทียบปลากัดที่ชนะการประกวด กับปลากัดของตนเอง
+		\item เพิ่มจำนวนคลาสให้ครบถ้วนตาม ตามประเภทปลากัดพื้นบ้านของไทย
+		\item เพิ่มระบบการแจ้งเตือนภายนอก เพื่อให้ผู้เชี่ยวชาญหรือผู้จัดการประกวด ทราบได้ทันท่วงทีว่ามี
+		กิจกรรมอะไรเข้ามา อย่างเช่น ผู้เชี่ยวมีปลากัดรอประเมิน ผู้จัดการประกวด มีกดอนุมัติเข้าร่วม
+		การประกวด
+	\end{enumerate}
+\end{sloppypar}

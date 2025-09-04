@@ -1,0 +1,75 @@
+%==================== chapter4.tex ====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- หัวบท + เขียนสารบัญบทก่อนหัวข้อย่อย ----------
+\phantomsection
+\addcontentsline{toc}{chapter}{บทที่ 4 ผลการดำเนินงาน}
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont บทที่ 4}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- ชื่อบท ----------
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont ผลการดำเนินงาน}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\section*{ผลการทดสอบแบบจำลองปัญญาประดิษฐ์}
+\addcontentsline{toc}{section}{ผลการทดสอบแบบจำลองปัญญาประดิษฐ์}
+
+% ---------- เนื้อหา (จัดกระจายแบบไทย, ย่อหน้าแรก 1.5 ซม.) ----------
+\indent ในการพัฒนาเว็บแอปพลิเคชัน “ศูนย์รวมการจัดประกวดปลากัดไทย” ผู้วิจัยได้สร้างระบบ
+จัดเก็บข้อมูลการแข่งขัน ข่าวสาร และเชื่อมต่อกับแบบจำลองสำหรับการจำแนกสายพันธุ์ปลากัด ซึ่ง
+โมเดลหลักที่เลือกใช้คือ ResNet50 (pre-trained บน ImageNet) พร้อมการปรับ Fine-tune
+ให้เหมาะกับข้อมูลที่รวบรวมมา โดยก่อนการฝึกโมเดลมีการเตรียมข้อมูลภาพ ดังนี้
+
+\begin{sloppypar}
+	\begin{enumerate} %[start=4]  % เริ่มที่ 2 (ต่อจาก 1)
+		\item \textbf{การตรวจสอบและกรองไฟล์ ภาพ:} ลือกเฉพาะไฟล์ ที่ รองรับ ได้แก่ .jpg, .jpeg, .png, .bmp,
+		.webp
+		\item \textbf{การทำความสะอาด (Cleaning):} เปิดภาพอย่างปลอดภัยด้วยไลบรารี PIL, แปลงเป็น RGB,ปรับขนาดด้านยาวไม่เกินที่กำหนด และบันทึกใหม่เป็น JPEG
+		\item \textbf{การกำจัดภาพซ้ำ (Deduplication):} ใช้วิธี Average Hash เพื่อตรวจจับและตัดภาพที่ซ้ำหรือเกือบซ้ำ
+		\item \textbf{การแบ่ง ชุด ข้อมูล (Splitting):} แบ่ง ข้อมูล เป็น Training set และ Validation set ในอัตรา 85:15 โดยสุ่มแยกต่อคลาส
+	\end{enumerate}
+\end{sloppypar}
+
+\indent หลังการเตรียมข้อมูลได้ชุดข้อมูลรวมจำนวน 356 ภาพแบ่งเป็น Train 294 ภาพและ Validation 50 ภาพ
+
+\begin{table}[h]
+	\caption{จำนวนภาพปลากัดหลังการเตรียมข้อมูล}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{}
+				>{\raggedright\arraybackslash}X
+				>{\centering\arraybackslash}p{2.2cm}
+				>{\centering\arraybackslash}p{2.6cm}
+				>{\centering\arraybackslash}p{2.2cm}
+				@{}}
+			\Xhline{1.5pt}
+			\bfseries คลาส & \bfseries Train & \bfseries Validation & \bfseries รวม \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านภาคอีสานหางลาย & 101 & 17 & 118 \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านภาคใต้ & 114 & 20 & 134 \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านมหาชัย & 79 & 13 & 92 \\
+			\Xhline{0.5pt}
+			รวม & 294 & 50 & 344 \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+\endgroup

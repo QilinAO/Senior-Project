@@ -1,0 +1,82 @@
+%==================== chapter3_12.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ตั้งค่าให้เหมือนสเปกเดิมทุกบท
+\setlength{\LoneLabelSep}{0.5em}
+\settowidth{\LoneLabelWidth}{9.}
+\setlength{\LoneContentCol}{\dimexpr 1.5cm + \LoneLabelWidth + \LoneLabelSep\relax}
+
+\setlength{\LtwoLabelSep}{0.5em}
+\settowidth{\LtwoLabelWidth}{9.9.}
+\setlength{\ExtraAlign}{-2.8em}
+
+% ระดับ 1: อินเดนต์ 1.5 ซม.
+\setlist[enumerate,1]{%
+	label=\arabic*., align=left,
+	leftmargin=1.5cm, labelindent=0pt,
+	labelwidth=\LoneLabelWidth, labelsep=\LoneLabelSep,
+	itemsep=0pt, topsep=0.5\baselineskip
+}
+
+\begin{enumerate}
+	\item Entity – Relation Diagram: Profiles
+	\item Entity – Relation Diagram: Contests
+	\item Entity – Relation Diagram: Submissions
+	\item Entity – Relation Diagram: Assignments
+	\item Entity – Relation Diagram: ContestJudges
+	\item Entity – Relation Diagram: Notifications
+\end{enumerate}
+
+\vspace{\baselineskip}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont Data Dictionary: เว็บแอปพลิเคชันศูนย์รวมการจัดการประกวดปลากัดไทย}\par
+
+
+\vspace{\baselineskip}
+
+% ===== Helper for nicer row height (เฉพาะบล็อกนี้) =====
+{\renewcommand{\arraystretch}{1.15}
+	
+	% ========== ER: PROFILES ==========
+	\begin{table}[h]
+		\caption{Entity -- Relation Diagram: Profiles}
+		{\tablefont
+			\setlength{\tabcolsep}{6pt}
+			\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{4.2cm} D >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{1.6cm} @{}}
+				\Xhline{1.5pt}
+				\textbf{Attribute Name} & \textbf{Description} & \textbf{Data Type} & \textbf{Key Type} \\
+				\Xhline{0.5pt}
+				\textbf{id}        & รหัสเฉพาะสำหรับระบุผู้ใช้งานแต่ละคน & UUID & PK \\
+				\Xhline{0.5pt}
+				username           & ชื่อแฝงของผู้ใช้สำหรับแสดงผล (ไม่ซ้ำกัน) & String & \\
+				\Xhline{0.5pt}
+				first\_name        & ชื่อจริงของผู้ใช้ & String & \\
+				\Xhline{0.5pt}
+				last\_name         & นามสกุลของผู้ใช้ & String & \\
+				\Xhline{0.5pt}
+				email              & อีเมลสำหรับเข้าระบบและติดต่อ (ไม่ซ้ำกัน) & String & \\
+				\Xhline{0.5pt}
+				avatar\_url        & ลิงก์รูปภาพโปรไฟล์ของผู้ใช้ & String & \\
+				\Xhline{0.5pt}
+				created\_at        & วันและเวลาที่สร้างบัญชีผู้ใช้ & Timestamp & \\
+				\Xhline{0.5pt}
+				updated\_at        & วันและเวลาที่แก้ไขข้อมูลผู้ใช้ล่าสุด & Timestamp & \\
+				\Xhline{0.5pt}
+				role               & บทบาทของผู้ใช้ในระบบ & String & \\
+				\Xhline{0.5pt}
+				specialities       & ความเชี่ยวชาญพิเศษ & JSON & \\
+				\Xhline{1.5pt}
+		\end{tabularx}}
+	\end{table}
+	
+

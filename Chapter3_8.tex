@@ -1,0 +1,74 @@
+%==================== chapter3_8.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ================== Use Case ดูประวัติการจัดการประกวด ==================
+\begin{table}[h]
+	\caption{Use Case ดูประวัติการจัดการประกวด}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace ดูประวัติการจัดประกวด & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้จัดการประกวด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace สามารถดูประวัติการจัดประกวดทั้งหมดได้ & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case ให้บริการประเมินคุณภาพปลากัดทำการประเมินคะแนนให้กับผู้เลี้ยงปลากัด ==================
+\begin{table}[h]
+	\caption{Use Case ให้บริการประเมินคุณภาพปลากัดทำการประเมินคะแนนให้กับ
+		ผู้เลี้ยงปลากัด}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace ให้บริการประเมินคุณภาพปลากัดทำการประเมินคะแนนให้กับ & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้เชี่ยวชาญด้านปลากัด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace สามารถทำการให้ คะแนนการประเมินแก่ผู้เลี้ยงปลากัด และส่งผลคะแนนกลับไปหาผู้เลี้ยงปลากัดเพื่อให้ผู้เลี้ยงได้ทราบผลคะแนน & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================
+
+% ================== Use Case เป็นกรรมการในการตัดสิน ==================
+\begin{table}[h]
+	\caption{Use Case เป็นกรรมการในการตัดสิน}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\justifying\arraybackslash}X >{\raggedleft\arraybackslash}p{4.2cm} @{}}
+			\Xhline{1.5pt}
+			\textbf{Use Case Title:}\enspace เป็นกรรมการในการตัดสิน & \UseCaseID[uc:register] \\
+			\Xhline{0.5pt}
+			\textbf{Primary Actor:}\enspace ผู้เชี่ยวชาญด้านปลากัด & \\
+			\Xhline{0.5pt}
+			\textbf{Stakeholder Actor:}\enspace - & \\
+			\Xhline{0.5pt}
+			\textbf{Main Flow:}\enspace ทำหน้าที่เป็นกรรมการในการตัดสิน & \\
+			\Xhline{0.5pt}
+			\textbf{Exception Flow ที่ 1:}\enspace การที่จะเป็นกรรมการในการตัดสินได้จะต้องได้รับเชิญจากผู้จัดการประกวดเท่านั้น & \\
+			\Xhline{1.5pt}
+		\end{tabularx}
+	}
+\end{table}
+% =====================================================

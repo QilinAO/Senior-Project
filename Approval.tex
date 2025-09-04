@@ -1,0 +1,68 @@
+%==================== Approval.tex ====================
+
+\clearpage
+% \thispagestyle{empty}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\sloppy % ผ่อนกฎจัดบรรทัดเฉพาะหน้าแบบฟอร์ม
+
+% ----- ปุ่มปรับได้ -----
+\newlength{\SignRule} \setlength{\SignRule}{5cm}   % ความยาวเส้นจุด (5cm/11cm แล้วแต่ต้องการ)
+\newlength{\SignSep}  \setlength{\SignSep}{0.75em}  % ช่องว่างหลังเส้นจุด
+\newlength{\DotUnit}  \setlength{\DotUnit}{0.15em}  % ยิ่งเล็กยิ่งจุดถี่
+
+% วาดเส้นจุด: หน่วยจุดยิ่งเล็กยิ่งถี่
+\newcommand{\dotleaders}{\leaders\hbox to \DotUnit{\hss.\hss}\hfill}
+
+% #1 = ข้อความตำแหน่ง (ต่อจากเส้นจุด; ยาวแค่ไหนก็ตัดบรรทัดเอง)
+% #2 = ชื่อในวงเล็บ (บรรทัดถัดไป ชิดซ้าย)
+\newcommand{\signrow}[2]{%
+	% ย่อเฉพาะบรรทัดแรก = ความยาวเส้นจุด + ช่องว่าง
+	{\parshape 2
+		\dimexpr\SignRule+\SignSep\relax \dimexpr\linewidth-\SignRule-\SignSep\relax
+		0pt \linewidth
+		% ซ้อนเส้นจุดให้เริ่มที่ "ขอบซ้ายจริง" โดยยื่นกลับไปทางซ้ายด้วย \llap
+		\noindent\llap{%
+			\makebox[\dimexpr\SignRule+\SignSep\relax][l]{%
+				\makebox[\SignRule][l]{\dotleaders}%
+			}%
+		}%
+		\raggedright #1\par}%
+	% ชื่อในวงเล็บ บรรทัดใหม่ ชิดซ้าย
+	\noindent(#2)\par\vspace{\baselineskip}%
+}
+
+
+% ---------- ส่วนหัว (กึ่งกลาง) ----------
+\begin{center}
+	ภาคนิพนธ์\\[-0.15\baselineskip]
+	เรื่อง\\[1\baselineskip]
+	
+	เว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย\\[1\baselineskip]
+	
+	ของ เอกสิทธิ์ อัศวดารา\\[1\baselineskip]
+	
+	ได้รับการพิจารณาอนุมัติให้เป็นส่วนหนึ่งของการศึกษา
+	หลักสูตรปริญญาวิทยาศาสตรบัณฑิต\\
+	สาขาวิชาวิทยาการคอมพิวเตอร์
+	ของมหาวิทยาลัยพะเยา
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- ลำดับผู้ลงนาม (ห้ามครอบด้วย center) ----------
+\signrow{อาจารย์ที่ปรึกษา}{ผู้ช่วยศาสตราจารย์ ดร.สุรางคนา ระวังยศ}
+
+\signrow{กรรมการ}{อาจารย์วรกฤต แสนโภชน์}
+
+\signrow{กรรมการ}{อาจารย์ธนวัฒน์ แซ่เอียบ}
+
+% แถวที่คุณต้องการให้ “ต่อท้ายยาว ๆ แล้วตัดบรรทัดเอง”
+\signrow{ประธานหลักสูตรวิทยาศาสตรบัณฑิต \\ สาขาวิชาวิทยาการคอมพิวเตอร์
+	คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยพะเยา}{อาจารย์วรกฤต แสนโภชน์}
+
+\par\endgroup
+\clearpage
+
+%================== จบ Approval.tex ==================

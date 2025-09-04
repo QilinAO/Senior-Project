@@ -1,0 +1,66 @@
+%==================== chapter3.tex ====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begingroup
+% เนื้อหาบท: 16pt baseline ~19.2pt ตามสเปกเล่ม
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- หัวบท + เขียนสารบัญบทก่อนหัวข้อย่อย ----------
+\phantomsection
+\addcontentsline{toc}{chapter}{บทที่ 3 วิธีดำเนินงานวิจัย}
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont บทที่ 3}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- ชื่อบท (วิธีดำเนินงานวิจัย) ----------
+\begin{center}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont วิธีดำเนินงานวิจัย}
+\end{center}
+
+\vspace{\baselineskip}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\section*{การวิเคราะห์และการออกแบบระบบ}
+\addcontentsline{toc}{section}{การวิเคราะห์และการออกแบบระบบ}
+
+% ---------- เนื้อหา (จัดกระจายแบบไทย, ย่อหน้าแรก 1.5 ซม.) ----------
+\indent ในการพัฒนาระบบเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทยนั้นจำเป็นต้องมีการ
+ออกแบบระบบเพื่อชี้ให้เห็นโครงสร้างและหลักการทำงานของโครงงานนี้โดยผู้จัดทำได้ศึกษาค้นคว้า
+และวิเคราะห์ความต้องการขิงผู้ใช้งานระบบจากนั้นได้นำรายละเอียดที่ได้จากการศึกษาและวิเคราะห์
+นำมาออกแบบระบบซึ่งสามารถแบ่งออกเป็น
+
+% ตั้งค่าให้เหมือนสเปกเดิมทุกบท
+\setlength{\LoneLabelSep}{0.5em}
+\settowidth{\LoneLabelWidth}{9.}
+\setlength{\LoneContentCol}{\dimexpr 1.5cm + \LoneLabelWidth + \LoneLabelSep\relax}
+
+\setlength{\LtwoLabelSep}{0.5em}
+\settowidth{\LtwoLabelWidth}{9.9.}
+\setlength{\ExtraAlign}{-2.8em}
+
+% ระดับ 1: อินเดนต์ 1.5 ซม.
+\setlist[enumerate,1]{%
+	label=\arabic*., align=left,
+	leftmargin=1.5cm, labelindent=0pt,
+	labelwidth=\LoneLabelWidth, labelsep=\LoneLabelSep,
+	itemsep=0pt, topsep=0.5\baselineskip
+}
+
+\begin{enumerate}
+	\item Use Case Diagram
+	\item Entity-Relation Diagram
+	\item Class Diagram
+	\item Sequence Diagram
+	\item Activity Diagram
+	\item Interface
+\end{enumerate}
+
+\clearpage

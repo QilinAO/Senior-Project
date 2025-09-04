@@ -1,0 +1,339 @@
+%!TEX TS-program = xelatex
+\documentclass[a4paper, oneside]{report}
+
+% ===== ระยะขอบ A4 ตามข้อกำหนด =====
+% top=3.81cm, left=3.81cm, right=2.54cm, bottom=2.54cm
+\usepackage[top=3.81cm, left=3.81cm, right=2.54cm, bottom=2.54cm, headheight=1cm]{geometry}
+
+% ----- แพ็กเกจที่ใช้งาน -----
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{tabularx,array}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{needspace}
+\usepackage{caption}
+\usepackage{adjustbox}
+\usepackage{tocloft}
+
+% ===== การตั้งค่าหัวข้อสารบัญ (สำหรับหน้าสารบัญโดยเฉพาะ) =====
+% 1. กำหนดให้คำว่า "สารบัญ" อยู่กึ่งกลาง, เป็นตัวหนา, ขนาด 16pt
+\renewcommand{\cfttoctitlefont}{\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont}
+
+% 2. กำหนดสิ่งที่อยู่หลังหัวข้อ "สารบัญ"
+\renewcommand{\cftaftertoctitle}{%
+	\par\nobreak
+	\vskip-1.2em % ดึงบรรทัด "หน้า" ขึ้นไปให้ชิดกับ "สารบัญ"
+	{\hfill\fontsize{16pt}{19.2pt}\selectfont หน้า\par}% จัดคำว่า "หน้า" ไปชิดขวา
+	\vspace{0.5\baselineskip} % เว้นช่องว่างเล็กน้อยก่อนเริ่มรายการสารบัญ
+}
+
+% ===== ชื่อหัวเรื่องสารบัญ/สารบัญภาพ/สารบัญตาราง (ไทย) =====
+\renewcommand{\contentsname}{สารบัญ}
+\renewcommand{\listfigurename}{สารบัญภาพ}
+\renewcommand{\listtablename}{สารบัญตาราง}
+
+% ===== การตั้งค่าสารบัญ =====
+
+% --- บท (Chapter) ---
+\renewcommand{\cftchapfont}{\fontsize{16pt}{19.2pt}\bfseries} % ตัวหนา
+\renewcommand{\cftchappagefont}{\fontsize{16pt}{19.2pt}\bfseries} % ตัวหนา
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % เส้นจุด
+\setlength{\cftbeforechapskip}{1.0em} % ระยะห่างก่อนหน้า
+\setlength{\cftchapnumwidth}{5em} % ความกว้างเลขบท
+
+% --- หัวข้อ (Section) ---
+\renewcommand{\cftsecfont}{\fontsize{16pt}{19.2pt}\selectfont} % ปกติ
+\renewcommand{\cftsecpagefont}{\fontsize{16pt}{19.2pt}\selectfont} % ปกติ
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % เส้นจุด
+\setlength{\cftbeforesecskip}{0pt} % ระยะห่างก่อนหน้า
+\setlength{\cftsecindent}{2em} % เยื้องจากขอบ
+\setlength{\cftsecnumwidth}{3em} % ความกว้างเลขหัวข้อ
+
+% --- หัวข้อย่อย (Subsection) ---
+\renewcommand{\cftsubsecfont}{\fontsize{16pt}{19.2pt}\selectfont} % ปกติ
+\renewcommand{\cftsubsecpagefont}{\fontsize{16pt}{19.2pt}\selectfont} % ปกติ
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}} % เส้นจุด
+\setlength{\cftbeforesubsecskip}{0pt} % ระยะห่างก่อนหน้า
+\setlength{\cftsubsecindent}{4em} % เยื้องจากขอบ
+\setlength{\cftsubsecnumwidth}{4em} % ความกว้างเลขหัวข้อย่อย
+
+% ===== จัดเลขหน้า =====
+\usepackage{fancyhdr}
+
+\graphicspath{{/home/anming/Dropbox/ProJect/}}
+
+% ย่อหน้าแบบไทย (เรียกใช้เป็นครั้งคราว)
+\providecommand{\ThaiPara}[1]{%
+	\par\begingroup
+	\justifying
+	\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+	\indent #1\par
+	\endgroup
+}
+
+% ----- ฟอนต์ไทย -----
+\usepackage{fontspec}
+\setmainfont{TH Sarabun New}[
+Path=/home/anming/.local/share/fonts/THSarabun/,
+UprightFont    ={THSarabunNew.ttf},
+BoldFont       ={THSarabunNew Bold.ttf},
+ItalicFont     ={THSarabunNew.ttf},
+BoldItalicFont ={THSarabunNew Bold.ttf}
+]
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+% ===== ขนาดตัวอักษรทั้งเล่ม =====
+\makeatletter
+\renewcommand\normalsize{\@setfontsize\normalsize{16pt}{19.2pt}}
+\normalsize
+\renewcommand\small{\@setfontsize\small{13pt}{15.6pt}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{13pt}{15.6pt}}
+\renewcommand\scriptsize{\@setfontsize\scriptsize{13pt}{15.6pt}}
+\renewcommand\tiny{\@setfontsize\tiny{13pt}{15.6pt}}
+\renewcommand\large{\@setfontsize\large{18pt}{21.6pt}}
+\renewcommand\Large{\@setfontsize\Large{18pt}{21.6pt}}
+\renewcommand\LARGE{\@setfontsize\LARGE{18pt}{21.6pt}}
+\renewcommand\huge{\@setfontsize\huge{18pt}{21.6pt}}
+\renewcommand\Huge{\@setfontsize\Huge{18pt}{21.6pt}}
+\makeatother
+
+% ===== จัดหน้า =====
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+\emergencystretch=2em
+
+% ===== ชื่อรูป/ตาราง =====
+\captionsetup[table]{name=ตารางที่}
+\captionsetup[figure]{name=ภาพที่}
+\captionsetup[table]{justification=raggedright,singlelinecheck=false, labelfont=bf,textfont=bf}
+\captionsetup[figure]{justification=centering, singlelinecheck=false, labelfont=bf, textfont=bf}
+\AtBeginEnvironment{figure}{\centering}
+
+% ===== ฟอนต์ตารางเริ่มต้น =====
+\newcommand{\tablefont}{\fontsize{13pt}{15.6pt}\selectfont}
+\AtBeginEnvironment{tabularx}{\tablefont\setlength{\parindent}{0pt}}
+
+% ===== ไฮเปอร์ลิงก์ =====
+\usepackage[hidelinks,unicode]{hyperref}
+
+% ===== บรรณานุกรม: Numeric ต่อเนื่องทั้งเล่ม ตามลำดับอ้างในเนื้อหา =====
+\usepackage{csquotes}
+\usepackage[
+backend=biber,
+style=numeric-comp,
+sorting=none,
+sortcites=true,
+doi=false, isbn=false, url=true
+]{biblatex}
+\addbibresource{./references.bib}
+
+% หัวข้อ "บรรณานุกรม" ไทย: หนา 16pt กึ่งกลาง + (ไม่เพิ่มใน TOC)
+\defbibheading{thai-bib}{
+	\clearpage
+	\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont บรรณานุกรม\par
+	\vspace{\baselineskip}
+}
+% แขวนบรรทัด (รายการยาวบรรทัดต่อไปเยื้อง 1.50 ซม.)
+\setlength{\bibhang}{1.5cm}
+
+% --- Use Case ID auto-increment ---
+\newcounter{usecaseid}
+\newcommand{\UseCaseID}[1][]{%
+	\refstepcounter{usecaseid}%
+	\textbf{Use Case ID: \theusecaseid}%
+	\if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+
+% คอลัมน์ Description แบบไม่เยื้อง + จัดกระจายไทย
+\newcolumntype{D}{>{\noindent\parindent0pt\justifying\arraybackslash}X}
+
+% ===== enumerate layout (global, same spec) =====
+\makeatletter
+\@ifundefined{LoneLabelSep}{\newlength{\LoneLabelSep}}{}
+\@ifundefined{LoneLabelWidth}{\newlength{\LoneLabelWidth}}{}
+\@ifundefined{LoneContentCol}{\newlength{\LoneContentCol}}{}
+\@ifundefined{LtwoLabelSep}{\newlength{\LtwoLabelSep}}{}
+\@ifundefined{LtwoLabelWidth}{\newlength{\LtwoLabelWidth}}{}
+\@ifundefined{ExtraAlign}{\newlength{\ExtraAlign}}{}
+\@ifundefined{LthreeLabelSep}{\newlength{\LthreeLabelSep}}{}
+\@ifundefined{LthreeLabelWidth}{\newlength{\LthreeLabelWidth}}{}
+\@ifundefined{NestedStep}{\newlength{\NestedStep}}{}
+\makeatother
+
+\setlength{\LoneLabelSep}{0.5em}
+\settowidth{\LoneLabelWidth}{9.}
+\setlength{\LoneContentCol}{\dimexpr 1.5cm + \LoneLabelWidth + \LoneLabelSep\relax}
+
+\setlength{\LtwoLabelSep}{0.5em}
+\settowidth{\LtwoLabelWidth}{9.9.}
+\setlength{\ExtraAlign}{-2.8em}
+
+\setlength{\LthreeLabelSep}{0.5em}
+\settowidth{\LthreeLabelWidth}{9.9.9.}
+\setlength{\NestedStep}{0pt}
+
+% Level 1
+\setlist[enumerate,1]{%
+	label=\arabic*., align=left,
+	leftmargin=1.5cm, labelindent=0pt,
+	labelwidth=\LoneLabelWidth, labelsep=\LoneLabelSep,
+	itemsep=0pt, topsep=0.5\baselineskip
+}
+% Level 2
+\setlist[enumerate,2]{%
+	label*=\arabic*., align=left,
+	leftmargin=*,
+	labelwidth=\LtwoLabelWidth, labelsep=\LtwoLabelSep,
+	labelindent=\dimexpr \LoneContentCol + \ExtraAlign - \LtwoLabelWidth - \LtwoLabelSep\relax,
+	itemsep=0pt, topsep=0pt
+}
+% Level 3
+\setlist[enumerate,3]{%
+	label*=\arabic*., align=left,
+	leftmargin=*,
+	labelwidth=\LthreeLabelWidth, labelsep=\LthreeLabelSep,
+	labelindent=\dimexpr \LoneContentCol + \ExtraAlign + \NestedStep
+	- \LthreeLabelWidth - \LthreeLabelSep\relax,
+	itemsep=0pt, topsep=0pt
+}
+
+% ===== การตั้งค่าเลขหน้า =====
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+% เลขหน้าอยู่มุมบนขวา ระยะจากขอบบน 2.5 cm และขอบขวา 2.5 cm
+\fancyhead[R]{\fontsize{16pt}{19.2pt}\selectfont\thepage}
+
+\fancypagestyle{plain}{%
+	\fancyhf{}%
+	\renewcommand{\headrulewidth}{0pt}%
+	\fancyhead[R]{\fontsize{16pt}{19.2pt}\selectfont\thepage}%
+}
+
+% กำหนดรูปแบบเลขหน้าสำหรับส่วนนำ (อักษรไทย)
+\newcommand{\thaiPageNumber}[1]{%
+	\ifcase#1\or ก\or ข\or ค\or ง\or จ\or ฉ\or ช\or ซ\or ฌ\or ญ\or
+	\or ด\or ต\or ถ\or ท\or ธ\or น\or บ\or ป\or ผ\or ฝ\or พ\or ฟ\or ภ\or ม\or ย\or ร\or ล\or ว\or ศ\or ษ\or ส\or ห\or ฬ\or อ\or ฮ\fi
+}
+
+\begin{document}
+	
+	% ===== ส่วนนำ =====
+	\pagestyle{empty}
+	\IfFileExists{Cover.tex}{\include{Cover}}{}
+	\IfFileExists{Approval.tex}{\include{Approval}}{}
+	
+	% เริ่มนับหน้าส่วนนำด้วยอักษรไทย
+	\clearpage
+	\pagenumbering{roman}
+	\setcounter{page}{1}
+	\pagestyle{fancy}
+	\renewcommand{\thepage}{\thaiPageNumber{\value{page}}}
+	
+	% แสดงเลขหน้าเฉพาะ "บทคัดย่อไทย" และ "กิตติกรรมประกาศ"
+	\IfFileExists{Abstract.tex}{\include{Abstract}}{}
+	\IfFileExists{Acknowledgement.tex}{\include{Acknowledgement}}{}
+	
+	% หน้า "สารบัญ/สารบัญตาราง/สารบัญภาพ" ไม่แสดงเลข แต่ยังนับ
+	\clearpage
+	\thispagestyle{empty}
+	\tableofcontents
+	
+	% สารบัญตาราง
+	\clearpage
+	\thispagestyle{empty}
+	\listoftables
+	
+	% สารบัญภาพ
+	\clearpage
+	\thispagestyle{empty}
+	\listoffigures
+	
+	% ===== ส่วนเนื้อหา =====
+	\clearpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\pagestyle{fancy}
+	\renewcommand{\thepage}{\arabic{page}}
+	
+	% บทที่ 1 (ใช้หน้าใน Chapter1.tex เป็นหน้าบท)
+	\thispagestyle{plain}
+	\IfFileExists{Chapter1.tex}{\include{Chapter1}}{}
+	\IfFileExists{Chapter1_1.tex}{\include{Chapter1_1}}{}
+	\IfFileExists{Chapter1_2.tex}{\include{Chapter1_2}}{}
+	
+	% บทที่ 2 (ใช้หน้าใน Chapter2.tex เป็นหน้าบท)
+	\thispagestyle{plain}
+	\IfFileExists{Chapter2.tex}{\include{Chapter2}}{}
+	\IfFileExists{Chapter2_1.tex}{\include{Chapter2_1}}{}
+	\IfFileExists{Chapter2_2.tex}{\include{Chapter2_2}}{}
+	\IfFileExists{Chapter2_3.tex}{\include{Chapter2_3}}{}
+	\IfFileExists{Chapter2_4.tex}{\include{Chapter2_4}}{}
+	
+	% บทที่ 3 (ใช้หน้าใน Chapter3.tex เป็นหน้าบท)
+	\thispagestyle{plain}
+	\IfFileExists{Chapter3.tex}{\include{Chapter3}}{}
+	\IfFileExists{Chapter3_1.tex}{\include{Chapter3_1}}{}
+	\IfFileExists{Chapter3_2.tex}{\include{Chapter3_2}}{}
+	\IfFileExists{Chapter3_3.tex}{\include{Chapter3_3}}{}
+	\IfFileExists{Chapter3_4.tex}{\include{Chapter3_4}}{}
+	\IfFileExists{Chapter3_5.tex}{\include{Chapter3_5}}{}
+	\IfFileExists{Chapter3_6.tex}{\include{Chapter3_6}}{}
+	\IfFileExists{Chapter3_7.tex}{\include{Chapter3_7}}{}
+	\IfFileExists{Chapter3_8.tex}{\include{Chapter3_8}}{}
+	\IfFileExists{Chapter3_9.tex}{\include{Chapter3_9}}{}
+	\IfFileExists{Chapter3_10.tex}{\include{Chapter3_10}}{}
+	\IfFileExists{Chapter3_11.tex}{\include{Chapter3_11}}{}
+	\IfFileExists{Chapter3_12.tex}{\include{Chapter3_12}}{}
+	\IfFileExists{Chapter3_13.tex}{\include{Chapter3_13}}{}
+	\IfFileExists{Chapter3_14.tex}{\include{Chapter3_14}}{}
+	\IfFileExists{Chapter3_15.tex}{\include{Chapter3_15}}{}
+	\IfFileExists{Chapter3_16.tex}{\include{Chapter3_16}}{}
+	\IfFileExists{Chapter3_17.tex}{\include{Chapter3_17}}{}
+	\IfFileExists{Chapter3_18.tex}{\include{Chapter3_18}}{}
+	\IfFileExists{Chapter3_19.tex}{\include{Chapter3_19}}{}
+	\IfFileExists{Chapter3_20.tex}{\include{Chapter3_20}}{}
+	\IfFileExists{Chapter3_21.tex}{\include{Chapter3_21}}{}
+	\IfFileExists{Chapter3_22.tex}{\include{Chapter3_22}}{}
+	\IfFileExists{Chapter3_23.tex}{\include{Chapter3_23}}{}
+	\IfFileExists{Chapter3_24.tex}{\include{Chapter3_24}}{}
+	\IfFileExists{Chapter3_25.tex}{\include{Chapter3_25}}{}
+	\IfFileExists{Chapter3_26.tex}{\include{Chapter3_26}}{}
+	\IfFileExists{Chapter3_27.tex}{\include{Chapter3_27}}{}
+	
+	% บทที่ 4 (ใช้หน้าใน Chapter3_28.tex เป็นหน้าบท)
+	\thispagestyle{plain}
+	\IfFileExists{Chapter3_28.tex}{\include{Chapter3_28}}{}
+	\IfFileExists{Chapter3_29.tex}{\include{Chapter3_29}}{}
+	
+	% บทที่ 5 (ใช้หน้าใน Chapter3_30.tex เป็นหน้าบท)
+	\thispagestyle{plain}
+	\IfFileExists{Chapter3_30.tex}{\include{Chapter3_30}}{}
+	
+	% ===== ส่วนท้าย =====
+	% บรรณานุกรม
+	\chapter*{บรรณานุกรม}
+	\addcontentsline{toc}{chapter}{บรรณานุกรม}
+	\thispagestyle{plain}
+	\nocite{*}
+	\printbibliography[heading=thai-bib]
+	
+	% ภาคผนวก
+	\chapter*{ภาคผนวก}
+	\addcontentsline{toc}{chapter}{ภาคผนวก}
+	\thispagestyle{plain}
+	\IfFileExists{Appendix.tex}{\include{Appendix}}{}
+	
+	% ประวัติผู้วิจัย
+	\chapter*{ประวัติผู้วิจัย}
+	\addcontentsline{toc}{chapter}{ประวัติผู้วิจัย}
+	\thispagestyle{plain}
+	\IfFileExists{Biography.tex}{\include{Biography}}{}
+	
+\end{document}

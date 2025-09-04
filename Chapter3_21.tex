@@ -1,0 +1,78 @@
+%==================== chapter3_21.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+% ================================= Class: SupabaseAdmin ========================
+\begin{table}[h]
+	\caption{Class Description : SupabaseAdmin}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & SupabaseAdmin \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Client กลางสำหรับติดต่อกับ Supabase โดยใช้ SERVICE\_ROLE\_KEY ข้ามกฎ RLS เพื่อจัดการข้อมูลระดับ Admin \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				rpc(function, params): เรียกใช้ Database Function \\
+				from(table): เลือกตารางเพื่อดำเนินการ (CRUD) \\
+				storage(): เข้าถึงส่วนจัดการไฟล์ (Storage)
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================= Class: NotificationService ======================
+\begin{table}[h]
+	\caption{Class Description : NotificationService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & NotificationService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service กลางสำหรับสร้างและจัดการการแจ้งเตือน (Notifications) ไปยังผู้ใช้ในเหตุการณ์ต่าง ๆ \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				createNotification(userId, message): สร้างการแจ้งเตือนใหม่สำหรับผู้ใช้ที่ระบุ
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% =================================== Class: ApiService =========================
+\begin{table}[h]
+	\caption{Class Description : ApiService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ApiService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service กลางของ Frontend ทำหน้าที่เป็น Wrapper ของ \texttt{fetch} API เพื่อสื่อสารกับ Backend ทั้งหมด จัดการ Token, Headers และ Error เบื้องต้น \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+			get(endpoint): ส่ง GET request \\
+			post(endpoint, body): ส่ง POST request \\
+			put(endpoint, body): ส่ง PUT request \\
+			delete(endpoint): ส่ง DELETE request
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}

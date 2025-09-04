@@ -1,0 +1,77 @@
+%==================== chapter3_19.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\vspace{\baselineskip}
+
+
+% ============================== Class: ManagerService ===========================
+\begin{table}[h]
+	\caption{Class Description : ManagerService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ManagerService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service ที่รวบรวม Business Logic หลักสำหรับ Manager เช่น การสร้าง/อัปเดตการประกวด และการจัดการกรรมการ ติดต่อ SupabaseAdmin และส่งการแจ้งเตือนผ่าน NotificationService \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				createContestOrNews(managerId, data): สร้างการประกวด/ข่าวสารลงในฐานข้อมูล \\
+				assignJudgeToContest(contestId, judgeId): บันทึกการมอบหมายกรรมการลงในฐาน\\ข้อมูล
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================ Class: ExpertController ===========================
+\begin{table}[h]
+	\caption{Class Description : ExpertController}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ExpertController \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Controller จุดรับ Endpoint ของ Expert จัดการคำขอเกี่ยวกับการประเมินผลและการให้คะแนน \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				getEvaluationQueue(req, res): ดึงคิวงานประเมินคุณภาพ \\
+				submitQualityScores(req, res): ส่งผลคะแนนการประเมิน
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
+
+% ============================== Class: ExpertService ============================
+\begin{table}[h]
+	\caption{Class Description : ExpertService}
+	{\tablefont\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+			\Xhline{1.5pt}
+			\textbf{Class Name :} & ExpertService \\
+			\Xhline{0.5pt}
+			\textbf{Description :} & Service จัดการ Logic สำหรับผู้เชี่ยวชาญ เช่น การดึงคิวงาน การตอบรับงาน และการบันทึกคะแนน \\
+			\Xhline{0.5pt}
+			\textbf{Attribute :} & - \\
+			\Xhline{0.5pt}
+			\textbf{Method :} &
+			\begin{tabular}{@{}l@{}}
+				getEvaluationQueue(expertId): ดึงคิวงานประเมินคุณภาพที่ยังไม่เสร็จสิ้นของ\\ผู้เชี่ยวชาญ 
+				submitQualityScores(assignmentId, scoresData): \\ บันทึกผลคะแนนลงฐานข้อมูลและอัปเดตสถานะงาน
+			\end{tabular} \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
