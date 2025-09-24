@@ -13,65 +13,104 @@
 \vspace{\baselineskip}
 
 
-% ============================== Class: ManagerService ===========================
+% ============================ Class: ContestJudge ============================
 \begin{table}[h]
-	\caption{Class Description : ManagerService}
+	\caption{Class Description : ContestJudge}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & ManagerService \\
+			\textbf{Class Name :} & ContestJudge \\
 			\Xhline{0.5pt}
-			\textbf{Description :} & Service ที่รวบรวม Business Logic หลักสำหรับ Manager เช่น การสร้าง/อัปเดตการประกวด และการจัดการกรรมการ ติดต่อ SupabaseAdmin และส่งการแจ้งเตือนผ่าน NotificationService \\
+			\textbf{Description :} & การเป็นกรรมการของผู้เชี่ยวชาญในกิจกรรมการประกวด รวมถึงสถานะคำเชิญ \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: long — รหัสแถว (PK) \\
+				judge\_id: UUID — ผู้เชี่ยวชาญ (Profile.id) \\
+				contest\_id: UUID — การประกวด \\
+				status: string — สถานะคำเชิญ/บทบาท (invited, accepted, declined ฯลฯ) \\
+				assigned\_at: datetime — เวลามอบหมาย
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				createContestOrNews(managerId, data): สร้างการประกวด/ข่าวสารลงในฐานข้อมูล \\
-				assignJudgeToContest(contestId, judgeId): บันทึกการมอบหมายกรรมการลงในฐาน\\ข้อมูล
+				getJudgingContests(): ดึงรายการประกวดที่เกี่ยวข้อง \\
+				respondToJudgeInvitation(contestId, response, reason): ตอบรับ/ปฏิเสธ \\
+				assignJudgeToContest(contestId, judgeId): มอบหมายกรรมการ \\
+				removeJudgeFromContest(contestId, judgeId): ถอดกรรมการ \\
+				notifyJudgeRemoval(contestId, judgeId, options): แจ้งเตือนการถอด
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}
 \end{table}
 
-% ============================ Class: ExpertController ===========================
+%\newpage
+
+% ============================ Class: Assignment ============================
 \begin{table}[h]
-	\caption{Class Description : ExpertController}
+	\caption{Class Description : Assignment}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & ExpertController \\
+			\textbf{Class Name :} & Assignment \\
 			\Xhline{0.5pt}
-			\textbf{Description :} & Controller จุดรับ Endpoint ของ Expert จัดการคำขอเกี่ยวกับการประเมินผลและการให้คะแนน \\
+			\textbf{Description :} & งานที่มอบหมายให้ผู้เชี่ยวชาญประเมินผลงาน เก็บคะแนนย่อยและผลรวม \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: long — รหัสงาน (PK) \\
+				submission\_id: UUID — อ้างอิงผลงาน \\
+				evaluator\_id: UUID — ผู้ประเมิน (Profile.id) \\
+				status: string — สถานะงาน (queued, accepted, rejected, evaluated ฯลฯ) \\
+				scores: JSON — รายละเอียดคะแนน \\
+				total\_score: decimal — คะแนนรวม \\
+				assigned\_at: datetime — เวลาได้รับมอบหมาย \\
+				evaluated\_at: datetime — เวลาประเมินเสร็จ
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				getEvaluationQueue(req, res): ดึงคิวงานประเมินคุณภาพ \\
-				submitQualityScores(req, res): ส่งผลคะแนนการประเมิน
+				getEvaluationQueue(): ดึงคิวงานประเมินของผู้เชี่ยวชาญ \\
+				respondToEvaluation(assignmentId, status, reason): ตอบรับ/ปฏิเสธงาน \\
+				submitQualityScores(assignmentId, scoresData): ส่งคะแนนโหมดคุณภาพ \\
+				getScoringSchema(bettaType, options): ดึงเกณฑ์การให้คะแนนแบบไดนามิก
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}
 \end{table}
 
-% ============================== Class: ExpertService ============================
+\newpage
+
+% ============================ Class: Notification ============================
 \begin{table}[h]
-	\caption{Class Description : ExpertService}
+	\caption{Class Description : Notification}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & ExpertService \\
+			\textbf{Class Name :} & Notification \\
 			\Xhline{0.5pt}
-			\textbf{Description :} & Service จัดการ Logic สำหรับผู้เชี่ยวชาญ เช่น การดึงคิวงาน การตอบรับงาน และการบันทึกคะแนน \\
+			\textbf{Description :} & การแจ้งเตือนของระบบที่ส่งถึงผู้ใช้แต่ละคน ใช้แจ้งผลการประกวด การมอบหมาย หรือการเปลี่ยนสถานะ \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: long — รหัสแจ้งเตือน (PK) \\
+				user\_id: UUID — ผู้รับ \\
+				message: string — ข้อความ \\
+				link\_to: string — ลิงก์ไปยังหน้าที่เกี่ยวข้อง \\
+				is\_read: boolean — อ่านแล้วหรือยัง \\
+				type: string — ประเภทแจ้งเตือน \\
+				created\_at: datetime — เวลาแจ้งเตือน
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				getEvaluationQueue(expertId): ดึงคิวงานประเมินคุณภาพที่ยังไม่เสร็จสิ้นของ\\ผู้เชี่ยวชาญ 
-				submitQualityScores(assignmentId, scoresData): \\ บันทึกผลคะแนนลงฐานข้อมูลและอัปเดตสถานะงาน
+				getMyNotifications(opts): ดึงรายการแจ้งเตือนของผู้ใช้ \\
+				markNotificationRead(id): ทำรายการเดียวเป็นอ่านแล้ว \\
+				markAllNotificationsRead(): ทำทั้งหมดเป็นอ่านแล้ว \\
+				countUnread(): นับจำนวนที่ยังไม่อ่าน
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}
 \end{table}
+
+\clearpage

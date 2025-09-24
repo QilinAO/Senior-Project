@@ -20,30 +20,56 @@
 \usepackage{adjustbox}
 \usepackage{tocloft}
 
-% ===== การตั้งค่าหัวข้อสารบัญ (สำหรับหน้าสารบัญโดยเฉพาะ) =====
-% 1. กำหนดให้คำว่า "สารบัญ" อยู่กึ่งกลาง, เป็นตัวหนา, ขนาด 16pt
-\renewcommand{\cfttoctitlefont}{\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont}
+% ===== ชื่อหัวเรื่องเป็นภาษาไทย =====
+\renewcommand{\contentsname}{สารบัญ}
+\renewcommand{\listtablename}{สารบัญตาราง}
+\renewcommand{\listfigurename}{สารบัญภาพ}
 
-% 2. กำหนดสิ่งที่อยู่หลังหัวข้อ "สารบัญ"
+% ===== รูปแบบหัวเรื่อง + คำว่า "หน้า" ใต้หัวเรื่อง (ช่องว่างหลัง "หน้า" = 0) =====
+\renewcommand{\cfttoctitlefont}{\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont}
 \renewcommand{\cftaftertoctitle}{%
-	\par\nobreak
-	\vskip-1.2em % ดึงบรรทัด "หน้า" ขึ้นไปให้ชิดกับ "สารบัญ"
-	{\hfill\fontsize{16pt}{19.2pt}\selectfont หน้า\par}% จัดคำว่า "หน้า" ไปชิดขวา
-	\vspace{0.5\baselineskip} % เว้นช่องว่างเล็กน้อยก่อนเริ่มรายการสารบัญ
+	\par\vspace{\baselineskip}% เว้น 1 บรรทัดระหว่าง "สารบัญ" กับ "หน้า"
+	\hfill\bfseries\fontsize{16pt}{19.2pt}\selectfont หน้า\par
 }
 
-% ===== ชื่อหัวเรื่องสารบัญ/สารบัญภาพ/สารบัญตาราง (ไทย) =====
-\renewcommand{\contentsname}{สารบัญ}
-\renewcommand{\listfigurename}{สารบัญภาพ}
-\renewcommand{\listtablename}{สารบัญตาราง}
+\renewcommand{\cftlottitlefont}{\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont}
+\renewcommand{\cftafterlottitle}{%
+	\par\vspace{\baselineskip}%
+	\hfill\bfseries\fontsize{16pt}{19.2pt}\selectfont หน้า\par
+}
+
+\renewcommand{\cftloftitlefont}{\centering\bfseries\fontsize{16pt}{19.2pt}\selectfont}
+\renewcommand{\cftafterloftitle}{%
+	\par\vspace{\baselineskip}%
+	\hfill\bfseries\fontsize{16pt}{19.2pt}\selectfont หน้า\par
+}
+
+
+
+
 
 % ===== การตั้งค่าสารบัญ =====
+
+% ---- ดันหัว "สารบัญ/ตาราง/ภาพ" ขึ้นชิดขอบบน ----
+\setlength{\cftbeforetoctitleskip}{-2\baselineskip}
+\setlength{\cftbeforelottitleskip}{-2\baselineskip}
+\setlength{\cftbeforeloftitleskip}{-2\baselineskip}
+
+\setlength{\cftaftertoctitleskip}{0pt}
+\setlength{\cftafterlottitleskip}{0pt}
+\setlength{\cftafterloftitleskip}{0pt}
+
+
+
+% (คงระยะหลังหัวไว้ตามเดิมที่ตั้งไว้แล้ว ไม่ต้องแก้)
+% \cftaftertoctitle / \cftafterlottitle / \cftafterloftitle
+
 
 % --- บท (Chapter) ---
 \renewcommand{\cftchapfont}{\fontsize{16pt}{19.2pt}\bfseries} % ตัวหนา
 \renewcommand{\cftchappagefont}{\fontsize{16pt}{19.2pt}\bfseries} % ตัวหนา
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % เส้นจุด
-\setlength{\cftbeforechapskip}{1.0em} % ระยะห่างก่อนหน้า
+\setlength{\cftbeforechapskip}{1em} % ระยะห่างก่อนหน้า
 \setlength{\cftchapnumwidth}{5em} % ความกว้างเลขบท
 
 % --- หัวข้อ (Section) ---
@@ -65,7 +91,8 @@
 % ===== จัดเลขหน้า =====
 \usepackage{fancyhdr}
 
-\graphicspath{{/home/anming/Dropbox/ProJect/}}
+\graphicspath{{/home/anming/Dropbox/ProJect/}{/home/anming/Dropbox/Apps/drawio-diagrams/}}
+
 
 % ย่อหน้าแบบไทย (เรียกใช้เป็นครั้งคราว)
 \providecommand{\ThaiPara}[1]{%
@@ -243,17 +270,24 @@ doi=false, isbn=false, url=true
 	% หน้า "สารบัญ/สารบัญตาราง/สารบัญภาพ" ไม่แสดงเลข แต่ยังนับ
 	\clearpage
 	\thispagestyle{empty}
-	\tableofcontents
+\begin{center}
+		\tableofcontents
+\end{center}
 	
 	% สารบัญตาราง
 	\clearpage
 	\thispagestyle{empty}
-	\listoftables
+\begin{center}
+		\listoftables
+\end{center}
+
 	
 	% สารบัญภาพ
 	\clearpage
 	\thispagestyle{empty}
-	\listoffigures
+\begin{center}
+		\listoffigures
+\end{center}
 	
 	% ===== ส่วนเนื้อหา =====
 	\clearpage
@@ -298,10 +332,7 @@ doi=false, isbn=false, url=true
 	\IfFileExists{Chapter3_17.tex}{\include{Chapter3_17}}{}
 	\IfFileExists{Chapter3_18.tex}{\include{Chapter3_18}}{}
 	\IfFileExists{Chapter3_19.tex}{\include{Chapter3_19}}{}
-	\IfFileExists{Chapter3_20.tex}{\include{Chapter3_20}}{}
-	\IfFileExists{Chapter3_21.tex}{\include{Chapter3_21}}{}
-	\IfFileExists{Chapter3_22.tex}{\include{Chapter3_22}}{}
-	\IfFileExists{Chapter3_23.tex}{\include{Chapter3_23}}{}
+
 	\IfFileExists{Chapter3_24.tex}{\include{Chapter3_24}}{}
 	\IfFileExists{Chapter3_25.tex}{\include{Chapter3_25}}{}
 	\IfFileExists{Chapter3_26.tex}{\include{Chapter3_26}}{}
@@ -311,28 +342,67 @@ doi=false, isbn=false, url=true
 	\thispagestyle{plain}
 	\IfFileExists{Chapter3_28.tex}{\include{Chapter3_28}}{}
 	\IfFileExists{Chapter3_29.tex}{\include{Chapter3_29}}{}
-	
+	\IfFileExists{Chapter3_29/1.tex}{\include{Chapter3_29/1}}{}
+	\IfFileExists{Chapter3_29/2.tex}{\include{Chapter3_29/2}}{}	
 	% บทที่ 5 (ใช้หน้าใน Chapter3_30.tex เป็นหน้าบท)
 	\thispagestyle{plain}
 	\IfFileExists{Chapter3_30.tex}{\include{Chapter3_30}}{}
 	
 	% ===== ส่วนท้าย =====
 	% บรรณานุกรม
-	\chapter*{บรรณานุกรม}
-	\addcontentsline{toc}{chapter}{บรรณานุกรม}
+	%\chapter*{บรรณานุกรม}
+	%\addcontentsline{toc}{chapter}{บรรณานุกรม}
+		\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{บรรณานุกรม} % ใส่ในสารบัญครั้งเดียว
+	\thispagestyle{empty}
+	
+	\vspace*{\fill}
+	\begin{center}
+		{\bfseries\fontsize{16pt}{19.2pt}\selectfont บรรณานุกรม}
+	\end{center}
+	\vspace*{\fill}
+	
+	\clearpage
 	\thispagestyle{plain}
-	\nocite{*}
+	%\nocite{*}
 	\printbibliography[heading=thai-bib]
 	
 	% ภาคผนวก
-	\chapter*{ภาคผนวก}
-	\addcontentsline{toc}{chapter}{ภาคผนวก}
-	\thispagestyle{plain}
+	% ===== ภาคผนวก (หน้าเปิดแบบกึ่งกลางทั้งหน้า) =====
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{ภาคผนวก} % ใส่ในสารบัญครั้งเดียว
+	\thispagestyle{empty}
+	
+	\vspace*{\fill}
+	\begin{center}
+		{\bfseries\fontsize{16pt}{19.2pt}\selectfont ภาคผนวก}
+	\end{center}
+	\vspace*{\fill}
+	
+	\clearpage
+	% ตั้งหัว/เลขหน้าตามปกติสำหรับเนื้อหาภาคผนวก
+	\pagestyle{plain}
+	
 	\IfFileExists{Appendix.tex}{\include{Appendix}}{}
+
+	%\IfFileExists{Appendix1.tex}{\include{Appendix1}}{}
+	\IfFileExists{Appendix1_1.tex}{\include{Appendix1_1}}{}
+	\IfFileExists{Appendix1_2.tex}{\include{Appendix1_2}}{}
+	\IfFileExists{Appendix1_3.tex}{\include{Appendix1_3}}{}
+	\IfFileExists{Appendix1_4.tex}{\include{Appendix1_4}}{}
+	\IfFileExists{Appendix1_5.tex}{\include{Appendix1_5}}{}
+	\IfFileExists{Appendix1_6.tex}{\include{Appendix1_6}}{}
+	\IfFileExists{Appendix1_7.tex}{\include{Appendix1_7}}{}
+	\IfFileExists{Appendix1_8.tex}{\include{Appendix1_8}}{}
+	\IfFileExists{Appendix1_9.tex}{\include{Appendix1_9}}{}
+	\IfFileExists{Appendix1_10.tex}{\include{Appendix1_10}}{}
+	\IfFileExists{Appendix1_11.tex}{\include{Appendix1_11}}{}
+	
+	
 	
 	% ประวัติผู้วิจัย
-	\chapter*{ประวัติผู้วิจัย}
-	\addcontentsline{toc}{chapter}{ประวัติผู้วิจัย}
 	\thispagestyle{plain}
 	\IfFileExists{Biography.tex}{\include{Biography}}{}
 	

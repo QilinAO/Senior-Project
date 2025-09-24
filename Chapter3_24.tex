@@ -15,7 +15,7 @@
 \addcontentsline{toc}{section}{Sequence Diagra}
 
 % ---------- เนื้อหา (จัดกระจายแบบไทย, ย่อหน้าแรก 1.5 ซม.) ----------
-\indent Sequence Diagram เป็นแผนผังแสดงการทำงานแบบลำดับปฏิสัมพันธ์ โดยระบบประเมินปลากัดก่อนการแข่งขันโดยผู้เชี่ยวชาญ มีองค์ประกอบ Sequence Diagram ดังนี้
+\indent Sequence Diagram เป็นแผนผังแสดงการทำงานแบบลำดับปฏิสัมพันธ์ โดยเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย มีองค์ประกอบ Sequence Diagram ดังนี้
 
 % ===== enumerate แบบ robust (ไม่ใช้ \dimexpr เพื่อกัน error) =====
 \setlist[enumerate,1]{%
@@ -42,103 +42,53 @@
 }
 
 \begin{enumerate}
-	\item การเข้าสู่ระบบ (User Sign In)
-	\item ผู้ใช้ส่งปลากัด (พร้อม AI Analysis)
-	\item Manager อนุมัติผู้สมัคร
-	\item Expert ส่งผลประเมิน
+	\item การเข้าสู่ระบบ
+	\item การสมัครสมาชิก
+	\item การออกจากระบบ
+	\item การกู้คืนเซสชันเมื่อเข้าแอป
+	\item การอัปเดตโปรไฟล์ผู้ใช้
+	\item การอัปโหลดรูปโปรไฟล์
+	\item ผู้ใช้ส่งปลากัดเพื่อประเมินคุณภาพ
+	\item ผู้ใช้ส่งปลากัดเข้าร่วมการแข่งขัน
+	\item ผู้เชี่ยวชาญดึงคิวงานประเมินคุณภาพ
+	\item ผู้เชี่ยวชาญตอบรับ/ปฏิเสธงานประเมิน
+	\item ผู้เชี่ยวชาญส่งคะแนนประเมินคุณภาพ
+	\item ดึงเกณฑ์การให้คะแนนตามประเภทปลา
+	\item ผู้เชี่ยวชาญดูรายการประกวดที่ต้องตัดสิน (มีฟอลแบ็ก)
+	\item ผู้เชี่ยวชาญตอบรับ/ปฏิเสธคำเชิญเป็นกรรมการ
+	\item ดึงรายชื่อปลาที่เข้าประกวดในกิจกรรม
+	\item ผู้เชี่ยวชาญส่งคะแนนการแข่งขัน
+	\item ผู้จัดการสร้างกิจกรรม/ข่าว
+	\item ผู้จัดการแก้ไขกิจกรรม
+	\item ผู้จัดการมอบหมาย/ถอดถอนกรรมการและส่งแจ้งเตือน
+	\item ผู้จัดการปิดการแข่งขันและประกาศผล
+	\item ผู้ใช้เปิดศูนย์แจ้งเตือนและทำเครื่องหมายอ่านทั้งหมด
+	\item วิเคราะห์รูปภาพด้วย AI สำหรับการแข่งขัน (เดี่ยว/หลายรูป)
+	\item ผู้ใช้ดูผลการแข่งขันแบบสาธารณะ
+	\item ประวัติการทำงานของผู้เชี่ยวชาญ (สลับแท็บ คุณภาพ/การแข่งขัน)
+	\item ประวัติการส่งของผู้ใช้ (คุณภาพ/การแข่งขัน)
 \end{enumerate}
 
 \vspace{\baselineskip}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{S1.drawio}
-	\caption{การเข้าสู่ระบบ (User Sign In)}
+	\includegraphics[width=0.8\linewidth]{SQ1}
+	\caption{การเข้าสู่ระบบ}
 \end{figure}
 
-\indent ไดอะแกรมนี้แสดงลำดับเหตุการณ์เมื่อผู้ใช้พยายามเข้าสู่ระบบ ตั้งแต่การกรอกข้อมูลไปจนถึงการตรวจสอบสิทธิ์และอัปเดตหน้าเว็บ
-
-% --- ขั้นตอนการเข้าสู่ระบบ ---
-
-\begin{sloppypar}
-	\begin{enumerate}
-		\item \textbf{ขั้นตอนการเข้าสู่ระบบ (User Sign In)}
-		\begin{enumerate}
-			\item User -> Login.jsx: ผู้ใช้กรอกอีเมลและรหัสผ่านในหน้า Login แล้วกดปุ่ม “เข้าสู่ระบบ”
-			\item Login.jsx -> AuthContext: Component Login เรียกใช้ฟังก์ชัน signin() จาก AuthContext ซึ่งเป็นศูนย์กลางจัดการสถานะการล็อกอิน
-			\item AuthContext -> authService.js (FE): AuthContext ส่งต่อคำสั่งไปยัง authService (ฝั่ง Frontend) เพื่อเริ่มกระบวนการล็อกอิน
-			\item authService.js (FE) -> ApiService.js: authService เรียกใช้ ApiService ซึ่งเป็น Service กลางสำหรับส่ง HTTP Request ทั้งหมด โดยส่ง POST ไปยัง endpoint /auth/signin
-			\item ApiService.js -> authRoutes.js (BE): ApiService ส่ง HTTP POST ไปยัง Backend API ที่ /api/auth/signin
-			\item authRoutes.js (BE) -> AuthController: Router ฝั่ง Backend ส่งต่อคำขอไปยังฟังก์ชัน handleSignIn() ใน AuthController
-			\item AuthController -> AuthService.js (BE): Controller เรียกใช้ AuthService ซึ่งดูแล Business Logic ของการเข้าสู่ระบบ
-			\item AuthService.js (BE) -> Supabase: ส่งอีเมลและรหัสผ่านไปตรวจสอบกับ Supabase Auth
-			\item Supabase -> AuthService.js (BE): ถ้าถูกต้อง ส่งข้อมูล user และ session (มี JWT Token) กลับมา
-			\item AuthService.js (BE) -> Supabase: นำ user.id ไปค้นหาข้อมูลโปรไฟล์จากตาราง profiles
-			\item Supabase -> AuthService.js (BE): ส่งข้อมูลโปรไฟล์ (เช่น role, ชื่อ, นามสกุล) กลับมา
-			\item AuthService.js (BE) -> AuthController: ส่งผลลัพธ์สุดท้าย (token + profile) กลับให้ Controller
-			\item AuthController -> ApiService.js: ส่ง HTTP 200 OK พร้อม token และ profile กลับไปยัง Frontend
-			\item ApiService.js -> authService.js (FE): ApiService ส่งต่อผลลัพธ์ให้ authService
-			\item authService.js (FE) -> authService.js (FE): บันทึก Token และโปรไฟล์ลงใน localStorage ของเบราว์เซอร์
-			\item authService.js (FE) -> AuthContext: ส่งข้อมูล profile กลับให้ AuthContext
-			\item AuthContext -> AuthContext: อัปเดต state ภายใน โดยตั้งค่า user และ isAuthenticated = true
-			\item AuthContext -> Login.jsx: แจ้งผลสำเร็จกลับไปยัง Component Login
-			\item Login.jsx -> User: นำทางผู้ใช้ไปยัง Dashboard ที่เหมาะสมกับ Role
-		\end{enumerate}
-	\end{enumerate}
-\end{sloppypar}
+\indent ไดอะแกรมนี้แสดงลำดับเหตุการณ์เมื่อผู้ใช้พยายามเข้าสู่ระบบ หน้า Login รับอินพุตจากผู้ใช้และตรวจสอบความครบถ้วน จากนั้นเรียก AuthContext.signin ซึ่งภายในจะเด้งไปเรียก authService.loginUser เพื่อยิง POST /auth/signin ผ่าน apiService ไปยัง Backend เมื่อสำเร็จเซิร์ฟเวอร์ส่ง token และ profile กลับมา ฝั่งฟรอนต์จะบันทึกลง localStorage แล้วอัปเดตสเตต user ใน AuthContext จากนั้นหน้า Login แสดง Toast สำเร็จและเปลี่ยนเส้นทางตาม role ของผู้ใช้ หากล้มเหลว หน้า Login แสดงข้อความผิดพลาดโดยไม่เปลี่ยนเส้นทาง
 
 \newpage
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{S2.drawio}
-	\caption{ขั้นตอนการส่งปลากัดเพื่อประเมิน (พร้อม AI)}
+	\includegraphics[width=0.8\linewidth]{SQ2}
+	\caption{การสมัครสมาชิก}
 \end{figure}
 
-\indent ไดอะแกรมนี้แสดงขั้นตอนที่ซับซ้อนขึ้น โดยแบ่งเป็น 2 ส่วน คือ การวิเคราะห์ด้วย AI (เกิดขึ้นเมื่ออัปโหลดรูป) และการส่งฟอร์มหลัก
+\indent แผนภาพนี้อธิบายการสร้างบัญชีผู้ใช้ใหม่ หน้า SignUp ตรวจความครบถ้วนของข้อมูลก่อนเรียก authService.signupUser ซึ่งยิง POST /auth/signup ผ่าน apiService ไปยัง Backend เมื่อสำเร็จจะตอบ 201 Created กลับมา หน้า SignUp แสดง Toast สำเร็จและนำผู้ใช้ไปหน้า Login ในกรณีผิดพลาด หน้า SignUp แสดงสาเหตุข้อผิดพลาดเพื่อให้แก้ไขข้อมูลและลองใหม่
 
-\begin{sloppypar}
-	\begin{enumerate}
-		\item \textbf{ขั้นตอนการส่งปลากัดเพื่อประเมิน (พร้อม AI)}
-		\begin{enumerate}
-			\item การวิเคราะห์ด้วย AI (เกิดขึ้นอัตโนมัติเมื่อผู้ใช้อัปโหลดรูป)
-			\begin{enumerate}
-				\item User -> BettaEvaluationForm.jsx: ผู้ใช้เลือกไฟล์รูปภาพเพื่ออัปโหลด
-				\item BettaEvaluationForm.jsx -> ModelService.js (FE): Component เรียกใช้ฟังก์ชัน analyzeBettaTypeAuto() เพื่อวิเคราะห์รูปภาพ
-				\item ModelService.js (FE) -> ApiService.js: Service ของ Model เรียก ApiService เพื่อส่ง POST request ไปยัง Backend ที่ endpoint /model/analyze-single
-				\item ApiService.js -> modelRoutes.js (BE): Request เดินทางถึง Backend และถูกส่งต่อไปยัง ModelController
-				\item ModelController -> ModelApiService.js (BE): Controller เรียกใช้ ModelApiService ซึ่งเป็น Service ที่เชื่อมต่อกับ AI ภายนอก
-				\item ModelApiService.js (BE) -> HuggingFace API: ส่งรูปภาพไปวิเคราะห์ที่ HuggingFace API 
-				\item HuggingFace API -> ModelApiService.js (BE): ส่งผลลัพธ์ (ประเภทปลา/ความน่าจะเป็น) กลับมา
-				\item ModelApiService.js (BE) -> ModelController: จัดรูปแบบผลลัพธ์แล้วส่งกลับ
-				\item ModelController -> ApiService.js: ส่งผลลัพธ์กลับไปยัง Frontend (HTTP 200 OK)
-				\item ApiService.js -> ModelService.js (FE): ส่งต่อผลลัพธ์
-				\item ModelService.js (FE) -> BettaEvaluationForm.jsx: ส่งคำแนะนำกลับไปให้ Component
-				\item BettaEvaluationForm.jsx -> User: แสดงผลการวิเคราะห์ของ AI บนหน้าจอ
-			\end{enumerate} 
-\newpage
-			\item \textbf{การส่งฟอร์มหลัก} 
-				\begin{enumerate}
-					\item User -> BettaEvaluationForm.jsx: ผู้ใช้กรอกข้อมูลที่เหลือจนครบถ้วน และกดปุ่ม "ส่งประเมิน"
-					\item BettaEvaluationForm.jsx -> UserService.js (FE): Component เรียกใช้ submitBettaForEvaluation()
-					\item UserService.js (FE) -> ApiService.js: Service เรียก ApiService เพื่อส่ง POST request ไปยัง /submissions/evaluate พร้อมข้อมูลทั้งหมดจากฟอร์ม
-					\item ApiService.js -> submissionRoutes.js (BE): Request เดินทางถึง Backend
-					\item submissionRoutes.js (BE) -> SubmissionController: Route ส่งต่อให้ SubmissionController
-					\item SubmissionController -> Supabase Storage: Controller อัปโหลดไฟล์รูปภาพและวิดีโอ ไปยัง Supabase Storage
-					\item Supabase Storage --> SubmissionController: Supabase Storage คืนค่า URL ของไฟล์ที่อัปโหลดสำเร็จกลับมา
-					\item SubmissionController -> SubmissionService.js (BE): Controller เรียกใช้ SubmissionService พร้อมข้อมูลทั้งหมด (รวมถึง URL ของไฟล์)
-					\item SubmissionService.js (BE) -> Supabase DB: SubmissionService เรียกใช้ฟังก์ชัน create\_full\_submission (RPC) ในฐานข้อมูลเพื่อบันทึกข้อมูล Submission
-					\item Supabase DB --> SubmissionService.js (BE): ฐานข้อมูลคืนค่า submission\_id ใหม่ที่ถูกสร้างขึ้น
-					\item SubmissionController -> AutoAssignmentService: Controller เรียกใช้ AutoAssignmentService แบบ Fire-and-forget (ทำงานเบื้องหลัง) เพื่อมอบหมายงานให้ Expert โดยอัตโนมัติ 
-					\item AutoAssignmentService -> Supabase DB: Service นี้จะค้นหา Expert ที่เหมาะสมและสร้าง assignment ใหม่ในฐานข้อมูล
-					\item SubmissionController --> ApiService.js: Controller ส่ง HTTP Response 201 Created กลับไปยัง Frontend เพื่อยืนยันว่าการส่งผลงานสำเร็จ
-					\item ApiService.js --> UserService.js (FE): ApiService ส่งต่อผลลัพธ์
-					\item UserService.js (FE) --> BettaEvaluationForm.jsx: Service แจ้งผลสำเร็จกลับไปที่ Component
-					\item BettaEvaluationForm.jsx -> User: Component แสดงข้อความ "สำเร็จ" และเปลี่ยนหน้าไปยังหน้าประวัติ (/history)
-				\end{enumerate}
-		\end{enumerate}
-	\end{enumerate}
-\end{sloppypar}
 
 \newpage
 
@@ -146,45 +96,234 @@
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{S3.drawio}
-	\caption{ขั้นตอนการอนุมัติผู้สมัครโดย Manager}
+	\includegraphics[width=0.8\linewidth]{SQ3}
+	\caption{การออกจากระบบ}
 \end{figure}
 
-\indent ไดอะแกรมนี้แสดงการทำงานในหน้า Live Contest Room เมื่อผู้จัดการทำการอนุมัติผู้ที่ส่งปลากัดเข้าร่วมการแข่งขัน
+\indent ไดอะแกรมนี้อธิบายขั้นตอนการออกจากระบบของผู้ใช้ ผู้ใช้กดปุ่ม “ออกจากระบบ” ใน Navbar จากนั้นเรียก AuthContext.signout ซึ่งภายในใช้ authService.signoutUser ยิง POST /auth/signout ไป Backend แม้ตอบล้มเหลวก็เคลียร์โทเคนและโปรไฟล์ใน localStorage เสมอ แล้วตั้ง user=null ใน AuthContext จากนั้น Navbar นำผู้ใช้กลับหน้า Login หรือหน้าแรก
 
-\begin{sloppypar}
-	\begin{enumerate}
-		\item Manager -> LiveContestRoom.jsx: ผู้จัดการเข้าสู่หน้า Live Room และเลือกการแข่งขันที่ต้องการจะดู
-		\item LiveContestRoom.jsx -> ManagerService.js (FE): Component เรียกฟังก์ชัน getContestSubmissions() เพื่อขอดูรายชื่อผู้สมัครทั้งหมด
-		\item ManagerService.js (FE) -> ApiService.js: Service ส่ง GET request ไปยัง Backend 
-		\item ApiService.js -> managerRoutes.js (BE): Request เดินทางถึง Backend
-		\item managerRoutes.js (BE) -> ManagerController: Route ส่งต่อให้ ManagerController
-		\item ManagerController -> ManagerService.js (BE): Controller เรียก Service เพื่อดึงข้อมูล
-		\item ManagerService.js (BE) -> Supabase DB: Service ค้นหาข้อมูล submissions ทั้งหมดที่เกี่ยวข้องกับการแข่งขันนี้จากฐานข้อมูล
-		\item Supabase DB --> ManagerService.js (BE): ฐานข้อมูลส่งรายชื่อผู้สมัครกลับมา 
-		\item ManagerService.js (BE) --> ManagerController: Service ส่งข้อมูลกลับให้ Controller
-		\item ManagerController --> ApiService.js: Controller ส่ง HTTP Response 200 OK พร้อมรายชื่อผู้สมัครกลับมา
-		\item ApiService.js --> ManagerService.js (FE): ApiService ส่งต่อข้อมูล
-		\item ManagerService.js (FE) --> LiveContestRoom.jsx: Service ส่งข้อมูลกลับให้ Component
-		\item LiveContestRoom.jsx -> Manager: Component แสดงรายชื่อผู้สมัครทั้งหมดบนหน้าจอ
-		\item Manager -> LiveContestRoom.jsx: ผู้จัดการกดปุ่ม "อนุมัติ" บนรายการของผู้สมัครที่ต้องการ
-		\item LiveContestRoom.jsx -> ManagerService.js (FE): Component เรียกฟังก์ชัน updateSubmissionStatus()
-		\item ManagerService.js (FE) -> ApiService.js: Service ส่ง PUT request ไปยัง Backend เพื่ออัปเดตสถานะ
-		\item ApiService.js -> managerRoutes.js (BE): Request เดินทางถึง Backend
-		\item managerRoutes.js (BE) -> ManagerController: Route ส่งต่อให้ ManagerController
-		\item ManagerController -> ManagerService.js (BE): Controller เรียก Service เพื่ออัปเดตสถานะ
-		\item ManagerService.js (BE) -> Supabase DB: Service อัปเดตสถานะของ submission ในฐานข้อมูลเป็น 'approved'
-		\item Supabase DB --> ManagerService.js (BE): ฐานข้อมูลยืนยันการอัปเดต
-		\item ManagerService.js (BE) -> NotificationService: ManagerService เรียก NotificationService เพื่อสร้างการแจ้งเตือน
-		\item NotificationService -> Supabase DB: Service บันทึกการแจ้งเตือนใหม่ ลงในฐานข้อมูลเพื่อส่งให้ผู้สมัคร
-		\item ManagerService.js (BE) --> ManagerController: ManagerService แจ้งผลสำเร็จกลับ
-		\item ManagerController --> ApiService.js: Controller ส่ง HTTP Response 200 OK
-		\item ApiService.js --> ManagerService.js (FE): ApiService ส่งต่อผลลัพธ์
-		\item ManagerService.js (FE) --> LiveContestRoom.jsx: Service แจ้งผลสำเร็จกลับไปที่ Component
-		\item LiveContestRoom.jsx -> LiveContestRoom.jsx: Component เรียกข้อมูลผู้สมัครใหม่อีกครั้ง เพื่อให้หน้าจอเป็นข้อมูลล่าสุด
-		\item LiveContestRoom.jsx -> Manager: Component แสดงข้อความ "สำเร็จ" และอัปเดต UI (เช่น ย้ายผู้สมัครจากแท็บ "รออนุมัติ" ไปยัง "อนุมัติแล้ว")
-	\end{enumerate}
-\end{sloppypar}
+\newpage
+
 \vspace{\baselineskip}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ4}
+	\caption{การกู้คืนเซสชันเมื่อเข้าแอป}
+\end{figure}
+
+\indent การกู้คืนเซสชันอัตโนมัติเมื่อแอปเริ่มทำงาน เมื่อ AuthProvider เมาท์ครั้งแรก จะตรวจว่ามีโทเคนใน localStorage ไหม ถ้ามีจะพยายามอ่าน profile จากแคชก่อน ถ้าไม่มีแคชจะยิง GET /auth/profile ไป Backend หากสำเร็จจะอัปเดต user และแคชโปรไฟล์ไว้ หากล้มเหลว (เช่น 401) จะเคลียร์แคชและถือว่าไม่ได้ล็อกอิน
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ5}
+	\caption{การอัปเดตโปรไฟล์ผู้ใช้}
+\end{figure}
+
+\indent อธิบายการอัปโหลดรูปโปรไฟล์ใหม่ หน้าโปรไฟล์ตรวจความถูกต้องของฟิลด์ จากนั้นเรียก userService.updateProfile เพื่อยิง PUT /users/profile ไป Backend เมื่อสำเร็จจะได้ profile ที่อัปเดตกลับมาและแสดง Toast สำเร็จ ถ้าเกิดข้อผิดพลาดจะแสดงข้อความเตือนและไม่เปลี่ยนสเตตภายในหน้า
+
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ6}
+	\caption{การอัปโหลดรูปโปรไฟล์}
+\end{figure}
+
+\indent อธิบายการอัปโหลดรูปโปรไฟล์ใหม่ ผู้ใช้เลือกไฟล์รูป จากนั้นหน้าโปรไฟล์เรียก userService.uploadProfilePicture(file) ซึ่งส่ง FormData ไป POST /users/profile/picture เมื่อสำเร็จ Backend ส่ง URL รูปใหม่กลับมา หน้าโปรไฟล์อัปเดตรูปทันทีและแจ้ง Toast สำเร็จ ถ้าอัปโหลดล้มเหลวจะแจ้งข้อความผิดพลาด
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ7}
+	\caption{ผู้ใช้ส่งปลากัดเพื่อประเมินคุณภาพ}
+\end{figure}
+
+\indent อธิบายการส่งปลากัดเพื่อ “ประเมินคุณภาพ” โดยมีการช่วยตรวจจาก AI ก่อนส่ง หน้า BettaEvaluationForm ให้ผู้ใช้อัปโหลดรูป 3 รูปและเลือกประเภทปลา ก่อนส่งจะเรียก modelService.analyzeBatchImages เพื่อเช็คความสอดคล้องของรูปและคาดเดาประเภท ถ้ารูปไม่ตรงกันระบบจะแจ้งและคัดทิ้งเฉพาะรูปที่ไม่ผ่าน เมื่อข้อมูลครบและผ่าน AI แล้วจึงส่ง POST /submissions ไป Backend หากสำเร็จแจ้ง Toast และพาไปหน้า /history ถ้าล้มเหลวแจ้งข้อผิดพลาดและคงแบบฟอร์มให้แก้ไข
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ8}
+	\caption{ผู้ใช้ส่งปลากัดเข้าร่วมการแข่งขัน}
+\end{figure}
+
+\indent อธิบายการส่งปลากัดเข้าร่วม “การแข่งขัน” เมื่อเปิด SubmissionFormModal ผู้ใช้กรอกข้อมูลและแนบรูป พร้อม contest\_id คอมโพเนนต์ตรวจว่ามีไอดีกิจกรรมและรูปตามจำนวนที่กำหนด จากนั้นเรียก userService.submitBettaForCompetition ส่ง FormData ไป POST /submissions/compete หากสำเร็จ Modal ปิดและแสดง Toast สำเร็จ กรณีไม่ผ่านจะแสดงข้อความและให้แก้ไขแล้วลองใหม่
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ9}
+	\caption{ผู้เชี่ยวชาญดึงคิวงานประเมินคุณภาพ}
+\end{figure}
+
+\indent แสดงการโหลด “คิวงานประเมินคุณภาพ” ของผู้เชี่ยวชาญ หน้า EvaluationQueue เรียก expertService.getEvaluationQueue ยิง GET /experts/queue เพื่อดึงสองลิสต์คือ “รอการตอบรับ” และ “ที่ต้องให้คะแนน” แล้วแสดงผลแบบแท็บ ผู้ใช้กดสลับแท็บและกดรับงานหรือไปหน้ากรอกคะแนนต่อไป
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ10}
+	\caption{ผู้เชี่ยวชาญตอบรับ/ปฏิเสธงานประเมิน}
+\end{figure}
+
+\indent อธิบายการตอบรับหรือปฏิเสธงานในคิว จากหน้า EvaluationQueue เมื่อกด “ตอบรับ” หรือ “ปฏิเสธ” จะเรียก expertService.respondToEvaluation ยิง POST /experts/assignments/:id/respond ส่งสถานะและเหตุผล (ถ้ามี) กลับไปยังเซิร์ฟเวอร์ เมื่อสำเร็จหน้ารีโหลดคิวและแจ้งผลด้วย Toast ขณะที่ข้อผิดพลาดจะแสดงข้อความและไม่เปลี่ยนสถานะใน UI
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ11}
+	\caption{ผู้เชี่ยวชาญส่งคะแนนประเมินคุณภาพ}
+\end{figure}
+
+\indent ผังนี้เป็นการส่งคะแนน “ประเมินคุณภาพ” เมื่อเปิด ScoringFormModal และกรอกคะแนนครบแล้ว ผู้เชี่ยวชาญกดยืนยัน ระบบเรียก expertService.submitQualityScores ยิง POST /experts/assignments/:id/score แนบคะแนนย่อยและคะแนนรวม ถ้าบันทึกสำเร็จ โมดอลปิด แสดง Toast สำเร็จ และรายการงานในคิวจะถูกย้ายไปสถานะ “ประเมินเสร็จแล้ว”
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ12}
+	\caption{ดึงเกณฑ์การให้คะแนนตามประเภทปลา}
+\end{figure}
+
+\indent ผังนี้เป็นการดึง “เกณฑ์การให้คะแนน” แบบไดนามิกตามประเภทปลา ขณะเปิดฟอร์มให้คะแนน ระบบเรียก expertService.getScoringSchema(bettaType,{contestId}) เพื่อยิง GET /experts/scoring-schema พร้อมพารามิเตอร์ betta\_type และ contest\_id (ถ้ามี) เซิร์ฟเวอร์ส่ง schema กลับมาให้เรนเดอร์ช่องคะแนนตามประเภทปลาที่เลือก ลดโอกาสกรอกผิดและรองรับกิจกรรมที่เกณฑ์ต่างกัน
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ13}
+	\caption{ผู้เชี่ยวชาญดูรายการประกวดที่ต้องตัดสิน (มีฟอลแบ็ก)}
+\end{figure}
+
+\indent แผนภาพนี้แสดงการดึง “รายการประกวดที่ต้องตัดสิน” พร้อมเส้นทางสำรอง expertService.getJudgingContests จะพยายามเรียก GET /experts/judging ก่อน หากไม่มีข้อมูลหรือเกิดข้อผิดพลาดจึง fallback ไป GET /experts/contests/judging ทั้งสองกรณีเซิร์ฟเวอร์จะตอบลิสต์ invitations และ myContests กลับมาเพื่อแสดงในแดชบอร์ด ช่วยให้ผู้เชี่ยวชาญเห็นภาพรวมงานที่ต้องตัดสิน
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ14}
+	\caption{ผู้เชี่ยวชาญตอบรับ/ปฏิเสธคำเชิญเป็นกรรมการ}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการตอบรับ/ปฏิเสธ “คำเชิญเป็นกรรมการ” หน้ารับเชิญเรียก expertService.respondToJudgeInvitation ซึ่งจะเลือกยิง POST /experts/contests/:id/accept เมื่อรับเชิญ หรือ POST /experts/contests/:id/decline เมื่อปฏิเสธ (พร้อมเหตุผลถ้ามี) เซิร์ฟเวอร์ตอบกลับผลลัพธ์ให้ UI ปรับสถานะรายการเชิญและแสดง Toast แจ้งผล
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ15}
+	\caption{ดึงรายชื่อปลาที่เข้าประกวดในกิจกรรม}
+\end{figure}
+
+\indent เมื่อผู้เชี่ยวชาญเปิดหน้ากิจกรรม ระบบเรียก expertService.getFishInContest(contestId) ยิง GET /experts/judging/:contestId/submissions เพื่อดึงลิสต์ผลงานทั้งหมด นำมาสร้างรายการ/การ์ดพร้อมตัวกรอง เพื่อให้เลือกไปหน้ากรอกคะแนนทีละชิ้นได้สะดวก
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ16}
+	\caption{ผู้เชี่ยวชาญส่งคะแนนการแข่งขัน}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการส่งคะแนน “การแข่งขัน” เมื่อกรอกคะแนนครบใน CompetitionScoringForm จะเรียก expertService.submitCompetitionScore(submissionId,data) ยิง POST /experts/judging/submissions/:id/score ถ้าบันทึกสำเร็จ UI แสดง Toast และอัปเดตสถานะของผลงานนั้น ๆ ในลิสต์ของกิจกรรม
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ17}
+	\caption{ผู้จัดการสร้างกิจกรรม/ข่าว}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการสร้างกิจกรรม/ข่าวใหม่โดยผู้จัดการ หน้า ContestManagement เมื่อกรอกฟอร์มครบและกด “สร้าง” จะเรียก managerService.createContestOrNews(FormData) ยิง POST /manager/contests ไป Backend หากสร้างสำเร็จจะส่ง contest ที่เพิ่งสร้างกลับมา UI แสดง Toast และนำไปหน้าแก้ไขหรือหน้าแสดงรายละเอียดกิจกรรม
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ18}
+	\caption{ผู้จัดการแก้ไขกิจกรรม}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการแก้ไขกิจกรรม ใน EditContestModal เมื่อผู้จัดการกดบันทึก จะเรียก managerService.updateMyContest(contestId,data) ยิง PUT /manager/contests/:id เซิร์ฟเวอร์ตอบข้อมูลล่าสุดกลับมาเพื่อนำไปแทนที่บน UI และแสดง Toast ยืนยันการอัปเดตสำเร็จ
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ19}
+	\caption{ผู้จัดการมอบหมาย/ถอดถอนกรรมการและส่งแจ้งเตือน}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการมอบหมาย/ถอดถอนกรรมการ และการแจ้งเตือนกรณีถอด บนหน้า AssignJudges ผู้จัดการดึงรายชื่อผู้เชี่ยวชาญด้วย GET /manager/experts?contest\_id เพื่อเลือกมอบหมาย (POST /manager/contests/:id/judges) หรือถอด (DELETE /manager/contests/:id/judges/:judgeId) เมื่อถอดสำเร็จ ระบบเรียก notifyJudgeRemoval ส่ง POST /manager/notifications หากเอ็นด์พอยต์นี้ไม่พร้อมใช้จะ fallback ไป POST /notifications ให้ผู้เชี่ยวชาญได้รับการแจ้งเตือนการถอดเสมอ
+
+\newpage 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ20}
+	\caption{ผู้จัดการปิดการแข่งขันและประกาศผล}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการ “ปิดประกวด/ประกาศผล” โดยผู้จัดการ ในหน้า LiveContestRoom ผู้จัดการคลิก “ประกาศผล” ระบบเรียก managerService.finalizeContest(contestId) ยิง POST /manager/contests/:id/finalize เซิร์ฟเวอร์ประมวลผลรวมคะแนนและสถานะ แล้วส่งผลลัพธ์สรุปกลับมา UI แสดงอันดับ สรุปคะแนน และสถิติที่เกี่ยวข้อง
+
+\vspace{\baselineskip} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ21}
+	\caption{ผู้ใช้เปิดศูนย์แจ้งเตือนและทำเครื่องหมายอ่านทั้งหมด}
+\end{figure}
+
+\indent แผนภาพนี้ครอบคลุมการเปิดศูนย์แจ้งเตือนและทำ “อ่านแล้วทั้งหมด” ผู้ใช้กดไอคอนกระดิ่งใน Navbar ระบบเรียก notificationService.getMyNotifications ยิง GET /notifications?params เพื่อดึงรายการล่าสุดมาแสดง หากผู้ใช้คลิก “ทำทั้งหมดเป็นอ่านแล้ว” จะเรียก notificationService.markAllNotificationsRead ยิง PATCH /notifications/read-all เมื่อสำเร็จ UI อัปเดตสถานะทั้งหมดเป็นอ่านแล้วทันที
+
+\vspace{\baselineskip} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ22}
+	\caption{วิเคราะห์รูปภาพด้วย AI สำหรับการแข่งขัน (เดี่ยว/หลายรูป)}
+\end{figure}
+
+\indent เมื่อผู้ใช้แนบรูปใน SubmissionFormModal ระบบเรียก modelService.analyzeForCompetition(formData, images) ถ้ามี 1 รูปจะยิง POST /model/analyze-single ถ้ามีหลายรูปจะยิง POST /model/analyze-batch เมื่อผลมาถึงจะสรุปประเภท/ความมั่นใจและแสดงคำแนะนำใน UI เพื่อช่วยตัดสินใจก่อนส่งเข้าระบบจริง
+
+\vspace{\baselineskip} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ23}
+	\caption{ผู้ใช้ดูผลการแข่งขันแบบสาธารณะ}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการดูผลการแข่งขันสาธารณะ หน้าผลการแข่งขันเรียก userService.getPublicContestResults(contestId) ยิง GET /public/contests/:id/results เพื่อดึงผลลัพธ์หลังประกาศอย่างเป็นทางการ เมื่อได้ข้อมูลแล้วจะแสดงอันดับ คะแนน และข้อมูลประกอบอื่น ๆ ให้ผู้เยี่ยมชมทั่วไปดูได้โดยไม่ต้องล็อกอิน
+
+\newpage 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ24}
+	\caption{ประวัติการทำงานของผู้เชี่ยวชาญ (สลับแท็บ คุณภาพ/การแข่งขัน)}
+\end{figure}
+
+\indent แผนภาพนี้อธิบายการดูประวัติการทำงานของผู้เชี่ยวชาญ แยกเป็นแท็บ “คุณภาพ/การแข่งขัน” หน้า EvaluationHistory มีแท็บสองประเภท เมื่อเลือก “คุณภาพ” ระบบจะเรียก GET /experts/history/evaluations ถ้าเลือก “การแข่งขัน” จะเรียก GET /experts/history/contests จากนั้นเรนเดอร์ตารางผล โดยจัดรูปแบบวันที่ คะแนน และชื่อผลงาน/การแข่งขันอย่างเหมาะสม
+
+\newpage 
+\vspace{\baselineskip} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SQ25}
+	\caption{ประวัติการส่งของผู้ใช้ (คุณภาพ/การแข่งขัน)}
+\end{figure}
+
+\indent ผนภาพนี้อธิบายการดูประวัติการส่งของผู้ใช้ แยก “ประเมินคุณภาพ/การแข่งขัน” หน้า History ของผู้ใช้เรียก userService.getMyEvaluationHistory เพื่อดูลิสต์การส่งประเมินคุณภาพ และเรียก userService.getMyCompetitionHistory เพื่อดูลิสต์การแข่งขันที่เคยเข้าร่วม จากนั้น UI แสดงรายการพร้อมรายละเอียดคะแนนและสถานะให้ผู้ใช้ติดตามย้อนหลังได้
 \endgroup

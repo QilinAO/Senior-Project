@@ -12,64 +12,116 @@
 
 \vspace{\baselineskip}
 
-% ============================ Class: AdminController ============================
+% ============================ Class: Profile ============================
 \begin{table}[h]
-	\caption{Class Description : AdminController}
+	\caption{Class Description : Profile}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & AdminController \\
+			\textbf{Class Name :} & Profile \\  % ปิดแถวด้วย \\
 			\Xhline{0.5pt}
-			\textbf{Description :} & Controller ทำหน้าที่เป็นจุดรับ Endpoint ของ Admin จัดการ Request ที่เกี่ยวกับการดูแลระบบทั้งหมด และเรียกใช้ AdminService เพื่อจัดการ Logic \\
+			\textbf{Description :} & โมเดลผู้ใช้หลักของระบบ ใช้แทนผู้ใช้งานทุกบทบาท และเก็บข้อมูลโปรไฟล์รวมถึงความเชี่ยวชาญ \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: UUID — รหัสผู้ใช้ (PK) \\
+				username: string — ชื่อผู้ใช้ \\
+				first\_name: string — ชื่อ \\
+				last\_name: string — นามสกุล \\
+				email: string — อีเมล \\
+				avatar\_url: string — รูปโปรไฟล์ \\
+				created\_at: datetime — เวลาเริ่มสร้าง \\
+				updated\_at: datetime — เวลาอัปเดต \\
+				role: string — บทบาท \\
+				specialities: JSON — ความเชี่ยวชาญของผู้เชี่ยวชาญ
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				getAllUsers(req, res): รับคำขอเพื่อดึงข้อมูลผู้ใช้ทั้งหมด \\
-				createUser(req, res): รับคำขอเพื่อสร้างผู้ใช้ใหม่
+				fetchProfile(): ดึงโปรไฟล์ผู้ใช้ปัจจุบัน \\
+				updateProfile(profileData): อัปเดตข้อมูลโปรไฟล์ \\
+				uploadProfilePicture(file): อัปโหลดรูปโปรไฟล์
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}
 \end{table}
 
-% ============================== Class: AdminService =============================
+\newpage
+
+% ============================ Class: Contest ============================
 \begin{table}[h]
-	\caption{Class Description : AdminService}
+	\caption{Class Description : Contest}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & AdminService \\
+			\textbf{Class Name :} & Contest \\ 
 			\Xhline{0.5pt}
-			\textbf{Description :} & Service ที่รวบรวม Logic การจัดการข้อมูลสำหรับ Admin ทั้งหมด โดยจะติดต่อกับฐานข้อมูลผ่าน SupabaseAdmin โดยตรง \\
+			\textbf{Description :} & กิจกรรมการประกวด/ข่าวสารที่จัดโดยผู้จัดการการแข่งขัน ใช้ควบคุมสถานะและช่วงเวลา \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: UUID — รหัสการประกวด (PK) \\
+				name: string — ชื่อการประกวด \\
+				short\_description: string — คำอธิบายสั้น \\
+				full\_description: string — คำอธิบายเต็ม \\
+				poster\_url: string — โปสเตอร์ \\
+				category: string — หมวดหมู่ \\
+				start\_date: datetime — วันเริ่ม \\
+				end\_date: datetime — วันจบ \\
+				status: string — สถานะ \\
+				is\_vote\_open: boolean — เปิดโหวตหรือไม่ \\
+				created\_by: UUID — ผู้สร้าง (Profile.id)
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				getAllUsers(): ดึงข้อมูลผู้ใช้ทั้งหมดจากฐานข้อมูล \\
-				createUser(userData): สร้างผู้ใช้ใหม่ในระบบ Authentication และสร้างโปรไฟล์ในฐานข้อมูล
+				createContestOrNews(formData): สร้างกิจกรรม/ข่าว \\
+				getMyContests(): ดึงรายการกิจกรรมของผู้จัดการ \\
+				getContestDetail(contestId, isContest): ดึงรายละเอียดกิจกรรม \\
+				updateMyContest(contestId, data): อัปเดตกิจกรรม \\
+				deleteMyContest(contestId): ลบกิจกรรม \\
+				updateContestStatus(contestId, status): เปลี่ยนสถานะ \\
+				finalizeContest(contestId): ปิดและประกาศผล \\
+				getContestSubmissions(contestId): ดึงรายการผู้สมัคร \\
+				getScoringProgress(contestId): ความคืบหน้าการให้คะแนน \\
+				getAllResults(): ดึงสรุปผลคะแนนทั้งหมด
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}
 \end{table}
 
-% =========================== Class: ManagerController ===========================
+\newpage
+
+% ============================ Class: Submission ============================
 \begin{table}[h]
-	\caption{Class Description : ManagerController}
+	\caption{Class Description : Submission}
 	{\tablefont\setlength{\tabcolsep}{6pt}%
-		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} D @{}}
+		\begin{tabularx}{\linewidth}{@{} >{\raggedright\arraybackslash}p{3.6cm} X @{}}
 			\Xhline{1.5pt}
-			\textbf{Class Name :} & ManagerController \\
+			\textbf{Class Name :} & Submission \\
 			\Xhline{0.5pt}
-			\textbf{Description :} & Controller จุดรับ Endpoint ของ Manager จัดการคำขอที่เกี่ยวกับการสร้างและจัดการการประกวด/ข่าวสาร \\
+			\textbf{Description :} & การส่งผลงานปลากัดของผู้ใช้ ทั้งเพื่อการประเมินคุณภาพและเพื่อเข้าร่วมประกวด \\
 			\Xhline{0.5pt}
-			\textbf{Attribute :} & - \\
+			\textbf{Attribute :} &
+			\begin{tabular}{@{}l@{}}
+				id: UUID — รหัสการส่ง (PK) \\
+				owner\_id: UUID — เจ้าของ (Profile.id) \\
+				contest\_id: UUID — การประกวดที่เข้าร่วม (nullable เมื่อประเมินคุณภาพ) \\
+				fish\_name: string — ชื่อปลา \\
+				fish\_type: string — ประเภท/สายพันธุ์ \\
+				fish\_age\_months: int — อายุ (เดือน) \\
+				fish\_image\_urls: string[] — ลิงก์รูป \\
+				fish\_video\_url: string — ลิงก์วิดีโอ \\
+				status: string — สถานะ \\
+				submitted\_at: datetime — เวลาส่ง \\
+				final\_score: decimal — คะแนนสุดท้าย (ถ้ามี)
+			\end{tabular} \\
 			\Xhline{0.5pt}
 			\textbf{Method :} &
 			\begin{tabular}{@{}l@{}}
-				createContestOrNews(req, res): รับคำขอสร้างการประกวดหรือข่าวสารใหม่ \\
-				assignJudgeToContest(req, res): รับคำขอมอบหมายกรรมการให้กับการประกวด
+				submitBettaForEvaluation(formData): ส่งประเมินคุณภาพ \\
+				submitBettaForCompetition(formData): ส่งเข้าประกวด \\
+				getScoresForSubmission(submissionId): ดึงคะแนนของผลงาน
 			\end{tabular} \\
 			\Xhline{1.5pt}
 	\end{tabularx}}

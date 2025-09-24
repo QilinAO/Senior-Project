@@ -1,7 +1,7 @@
 %==================== Appendix.tex ====================
 
 \clearpage
-\thispagestyle{plain}
+\thispagestyle{empty}
 
 \begingroup
 % เนื้อหาภาคผนวก: 16pt baseline ~19.2pt ตามสเปกเล่ม
@@ -13,30 +13,48 @@
 
 % ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
 \noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ภาคผนวก ก}\par
-\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont รายละเอียดการทดสอบระบบ}\par
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ผลการทดสอบโมเดล}\par
 
-% ---------- เนื้อหา (จัดกระจายแบบไทย, ย่อหน้าแรก 1.5 ซม.) ----------
-\indent ภาคผนวกนี้แสดงรายละเอียดการทดสอบระบบเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย
-รวมถึงผลการทดสอบในแต่ละด้านและข้อมูลเพิ่มเติมที่เกี่ยวข้อง
+\indent ในการพัฒนาเว็บแอปพลิเคชัน “ศูนย์รวมการจัดประกวดปลากัดไทย” ผู้วิจัยได้สร้างระบบ
+จัดเก็บข้อมูลการแข่งขัน ข่าวสาร และเชื่อมต่อกับแบบจำลองสำหรับการจำแนกสายพันธุ์ปลากัด ซึ่ง
+โมเดลหลักที่เลือกใช้คือ ResNet50 (pre-trained บน ImageNet) พร้อมการปรับ Fine-tune
+ให้เหมาะกับข้อมูลที่รวบรวมมา โดยก่อนการฝึกโมเดลมีการเตรียมข้อมูลภาพ ดังนี้
 
-\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ก.1 การทดสอบการทำงานของระบบ}\par
+\begin{sloppypar}
+	\begin{enumerate} %[start=4]  % เริ่มที่ 2 (ต่อจาก 1)
+		\item \textbf{การตรวจสอบและกรองไฟล์ ภาพ:} ลือกเฉพาะไฟล์ ที่ รองรับ ได้แก่ .jpg, .jpeg, .png, .bmp,
+		.webp
+		\item \textbf{การทำความสะอาด (Cleaning):} เปิดภาพอย่างปลอดภัยด้วยไลบรารี PIL, แปลงเป็น RGB,ปรับขนาดด้านยาวไม่เกินที่กำหนด และบันทึกใหม่เป็น JPEG
+		\item \textbf{การกำจัดภาพซ้ำ (Deduplication):} ใช้วิธี Average Hash เพื่อตรวจจับและตัดภาพที่ซ้ำหรือเกือบซ้ำ
+		\item \textbf{การแบ่ง ชุด ข้อมูล (Splitting):} แบ่ง ข้อมูล เป็น Training set และ Validation set ในอัตรา 85:15 โดยสุ่มแยกต่อคลาส
+	\end{enumerate}
+\end{sloppypar}
 
-\indent การทดสอบการทำงานของระบบครอบคลุมการทดสอบฟังก์ชันต่าง ๆ ของระบบ
-รวมถึงการสมัครแข่งขัน การอัปโหลดรูปภาพปลากัด การประเมินด้วย AI
-และการบันทึกผลการประกวด
+\indent หลังการเตรียมข้อมูลได้ชุดข้อมูลรวมจำนวน 356 ภาพแบ่งเป็น Train 294 ภาพและ Validation 50 ภาพ
 
-\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ก.2 การทดสอบประสิทธิภาพ}\par
+\begin{table}[h]
+	\caption{จำนวนภาพปลากัดหลังการเตรียมข้อมูล}
+	{\tablefont
+		\setlength{\tabcolsep}{6pt}%
+		\begin{tabularx}{\linewidth}{@{}
+				>{\raggedright\arraybackslash}X
+				>{\centering\arraybackslash}p{2.2cm}
+				>{\centering\arraybackslash}p{2.6cm}
+				>{\centering\arraybackslash}p{2.2cm}
+				@{}}
+			\Xhline{1.5pt}
+			\bfseries คลาส & \bfseries Train & \bfseries Validation & \bfseries รวม \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านภาคอีสานหางลาย & 101 & 17 & 118 \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านภาคใต้ & 114 & 20 & 134 \\
+			\Xhline{0.5pt}
+			ปลากัดพื้นบ้านมหาชัย & 79 & 13 & 92 \\
+			\Xhline{0.5pt}
+			รวม & 294 & 50 & 344 \\
+			\Xhline{1.5pt}
+	\end{tabularx}}
+\end{table}
 
-\indent การทดสอบประสิทธิภาพของระบบใช้เครื่องมือ Load Testing
-เพื่อจำลองการใช้งานจริงและวัดประสิทธิภาพของระบบในสภาวะต่าง ๆ
-
-\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ภาคผนวก ข}\par
-\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont รหัสต้นฉบับโปรแกรม}\par
-
-\indent ภาคผนวกนี้แสดงรหัสต้นฉบับของโปรแกรมที่สำคัญบางส่วน
-เพื่อให้ผู้อ่านสามารถเข้าใจการทำงานของระบบได้ดียิ่งขึ้น
-
-\par\endgroup
 \clearpage
 
-%================== จบ Appendix.tex ====================

@@ -1,0 +1,34 @@
+%==================== chapter3_29/1.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\linewidth]{ResNet-50.drawio}
+	\caption{ขั้นตอนการทำงาน ResNet-50}
+\end{figure}
+
+\begin{sloppypar}
+	\begin{enumerate} %[start=4]  % เริ่มที่ 2 (ต่อจาก 1)
+		\item อินพุตภาพ 3×224×224 -> ผ่าน Conv 7×7, stride 2 แล้ว MaxPool 3×3, stride 2 เพื่อลดขนาดแผนที่คุณลักษณะ (feature map) อย่างรวดเร็ว
+		\item เข้า สเตจของ Residual Bottleneck 4 ช่วงต่อเนื่อง (มีทางลัด residual ทุกบล็อก):
+		\begin{enumerate}
+			\item Stage1: ขนาดคงที่ 56×56, ช่องออก 256 (บล็อก ×3)
+			\item Stage2: ลดสเกลเป็น 28×28 ที่บล็อกแรก (stride 2), ช่องออก 512 (บล็อก ×4)
+			\item Stage3: ลดสเกลเป็น 14×14 ที่บล็อกแรก, ช่องออก 1024 (บล็อก ×6)
+			\item Stage4: ลดสเกลเป็น 7×7 ที่บล็อกแรก, ช่องออก 2048 (บล็อก ×3)
+			แต่ละบล็อกเป็นลำดับ 1×1 (ลด/ขยายช่อง) -> 3×3 (สกัดลวดลายเชิงพื้นที่) -> 1×1 (ขยายช่อง) แล้วบวกกับเส้นลัด (shortcut) เพื่อช่วยให้เทรนลึกได้
+		\end{enumerate}
+		\item ได้แผนที่คุณลักษณะสุดท้ายขนาด 2048×7×7 -> ทำ Global Average Pooling ให้เป็นเวกเตอร์ 2048-D
+		\item ส่งเข้า ชั้น Linear (FC) แปลงเป็น logits = จำนวนคลาส
+	\end{enumerate}
+\end{sloppypar}

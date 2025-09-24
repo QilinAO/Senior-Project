@@ -1,0 +1,22 @@
+%==================== Appendix.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+% เนื้อหาภาคผนวก: 16pt baseline ~19.2pt ตามสเปกเล่ม
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-22 00-24-03}
+	\caption{ฟังก์ชันมอบหมายงานให้ผู้เชี่ยวชาญสำหรับ submissions ที่ approved แล้วแต่ยังไม่มี assignment}
+\end{figure}
+
+\indent ฟังก์ชัน processUnassignedSubmissions() มีหน้าที่สแกน “คำส่งที่ยังไม่ได้มอบหมายผู้เชี่ยวชาญ” แล้วสร้างงานมอบหมายให้อัตโนมัติ โดยเริ่มดึง submissions ที่สถานะเป็น pending หรือ approved และต้องเป็นงานประเมินคุณภาพเท่านั้น (contest\_id เป็น null) หากดึงผิดพลาดหรือไม่พบข้อมูลจะคืน 0 จากนั้นวนเช็กทีละรายการว่าในตาราง assignments มีงานของ submission\_id นั้นอยู่แล้วหรือไม่ด้วยการนับแบบ head: true, count: 'exact' ถ้าไม่มีจึงเก็บไว้ในลิสต์ประมวลผล แล้วไล่เรียก createAutoAssignment(submission.id, submission.fish\_type) เพื่อสร้าง assignment ทีละรายการ พร้อมนับจำนวนที่สร้างสำเร็จและพัก 100ms ระหว่างรอบเพื่อลดภาระระบบ สุดท้าย log ผลรวมและคืนค่าเป็นจำนวน assignments ที่สร้างได้ ทั้งกระบวนการห่อด้วย try/catch หากเกิดปัญหาจะคืน 0.
+
+\clearpage

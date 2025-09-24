@@ -1,0 +1,101 @@
+%==================== Appendix.tex ====================
+
+\clearpage
+\thispagestyle{empty}
+
+\begingroup
+% เนื้อหาภาคผนวก: 16pt baseline ~19.2pt ตามสเปกเล่ม
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+% ---------- หัวข้อใหญ่ (ชิดซ้าย, หนา 16pt) ----------
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont ภาคผนวก ข}\par
+
+\noindent{\bfseries\fontsize{16pt}{19.2pt}\selectfont โค้ดส่วนระบบหลังบ้าน}\par
+
+\indent Api ส่วนระบบหลังบ้านของเว็บแอปพลิเคชันศูนย์รวมการจัดประกวดปลากัดไทย
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 22-54-12}
+	\caption{ฟังก์ชันสำหรับสมัครสมาชิก (Sign Up)}
+\end{figure}
+
+\indent ฟังก์ชัน signUp(userData) รับข้อมูลจากฟอร์ม (อีเมล รหัสผ่าน ชื่อ–นามสกุล และชื่อผู้ใช้) แล้วเรียก supabase.auth.signUp เพื่อสมัครสมาชิก พร้อมแนบข้อมูลโปรไฟล์ไปใน options.data โดยบังคับ role: 'user' เพื่อความปลอดภัยและให้ทริกเกอร์ในฐานข้อมูลสร้างโปรไฟล์อัตโนมัติ จากนั้นตรวจสอบผลตอบกลับ: ถ้ามีข้อผิดพลาดจะจับเคสอีเมลซ้ำแปลงเป็นข้อความไทยให้อ่านง่าย และกรณีอื่นก็ส่งต่อข้อความจาก Supabase; ยังมีการกันเหนียวหากโครงสร้าง data ผิดปกติหรือไม่มี user จะโยนข้อผิดพลาดทันที สุดท้ายคืน data (แม้ v2 อาจไม่ให้ session ตอนสมัคร) ให้เลเยอร์ที่เรียกใช้นำไปจัดการต่อ โดยมีการล็อกเพื่อดีบักแต่ควรระวังข้อมูลอ่อนไหวในสภาพแวดล้อมจริง.
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 23-30-59}
+	\caption{ฟังก์ชันสำหรับเข้าสู่ระบบ (Sign In)}
+\end{figure}
+
+\indent ฟังก์ชัน signIn(email, password) ทำงานโดยส่งอีเมลและรหัสผ่านไปที่ supabase.auth.signInWithPassword เพื่อขอเข้าสู่ระบบ ถ้าเกิดข้อผิดพลาดจะตรวจจับข้อความทั่วไปแล้วแปลงเป็นข้อความไทยอ่านง่าย เช่น “อีเมลหรือรหัสผ่านไม่ถูกต้อง” หรือ “กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ” จากนั้นเมื่อเข้าสู่ระบบสำเร็จจะได้ data ซึ่งมี user และ session นำ user.id ไปค้นตาราง profiles ด้วย select('*').eq('id', user.id).single() เพื่อดึงโปรไฟล์ที่ตรงกัน หากหาไม่เจอหรือมีปัญหาในการอ่านข้อมูลจะโยนข้อผิดพลาดทันที สุดท้ายคืนค่าเป็นอ็อบเจ็กต์ที่ประกอบด้วย token (ใช้ session.access\_token) และ profile เพื่อให้เลเยอร์ Controller นำไปใช้งานต่อ.
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 23-39-30}
+	\caption{ฟังก์ชันสำหรับออกจากระบบ (Sign Out)}
+\end{figure}
+
+\indent ฟังก์ชัน signOut() เรียก supabase.auth.signOut() เพื่อทำลายเซสชันของผู้ใช้ที่ล็อกอินอยู่ หากมีข้อผิดพลาดระหว่างออกจากระบบก็จะโยน Error พร้อมข้อความอธิบายเพื่อให้ส่วนที่เรียกใช้งานจัดการต่อ เมื่อสำเร็จจะส่งออบเจ็กต์ { message: 'ออกจากระบบสำเร็จ' } กลับไปเป็นการยืนยันว่าได้ออกจากระบบเรียบร้อยแล้ว.
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 23-43-28}
+	\caption{ฟังก์ชันหาผู้เชี่ยวชาญที่เหมาะกับ “ประเภทปลากัด” ที่รับเข้ามา}
+\end{figure}
+
+\indent ฟังก์ชัน findMatchingExperts(fishType) มีหน้าที่หาผู้เชี่ยวชาญที่เหมาะกับ “ประเภทปลา” ที่รับเข้ามา โดยเริ่มจากคืน [] ทันทีถ้าไม่ได้ส่ง fishType มา จากนั้นใช้ supabaseAdmin ดึงโปรไฟล์ผู้ใช้ที่มี role = 'expert' พร้อมฟิลด์ specialities; ถ้ามี error หรือไม่พบผู้เชี่ยวชาญก็คืน [] แล้วจบ เมื่อได้รายการมา จะปรับ fishType เป็นตัวพิมพ์เล็กและตัดช่องว่างเพื่อให้เปรียบเทียบแบบไม่สนตัวพิมพ์ จากนั้นกรองรายชื่อผู้เชี่ยวชาญโดยเช็คว่า specialities (ต้องเป็นอาร์เรย์) มีรายการใด “เข้าคู่” กับชนิดปลาหรือไม่ ด้วยเงื่อนไขหลากหลาย: ตรงเท่ากันทุกตัวอักษร, เป็นส่วนหนึ่งของกันและกัน (ทั้ง “A อยู่ใน B” และ “B อยู่ใน A”) หรือ “คล้ายกัน” ตามตัวช่วย this.isSimilarType() ถ้ากรองแล้วไม่เหลือใคร จะ fallback เป็นคืนผู้เชี่ยวชาญทั้งหมดเพื่อให้ระบบสุ่ม/เลือกต่อไป แต่ถ้ามี ก็คืนเฉพาะกลุ่มที่แมตช์ พร้อม log จำนวนที่พบ ไหลทั้งหมดถูกครอบด้วย try/catch เพื่อจับข้อผิดพลาดและคืน [] หากเกิดปัญหา.
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 23-51-49}
+	\caption{ฟังก์ชันตรวจสอบภาระงานของผู้เชี่ยวชาญ}
+\end{figure}
+
+\indent ฟังก์ชัน getExpertWorkload(expertId) ใช้สำหรับคำนวณภาระงานของผู้เชี่ยวชาญแต่ละคน โดยเรียก supabaseAdmin.from('assignments').select('*', { count: 'exact', head: true }) เพื่อ “นับจำนวนแถว” อย่างเดียว (ไม่ดึงข้อมูลจริง) ของงานที่มี evaluator\_id ตรงกับ expertId และมีสถานะ pending ถ้ามี error ระหว่างดึงข้อมูลจะพิมพ์ log แล้วคืนค่า 999 เพื่อบอกให้ระบบมองว่าคนนี้งานล้น จึงไม่ควรมอบหมายงานเพิ่ม กรณีปกติจะคืนจำนวนงานค้าง (count) หรือ 0 หากไม่มีงานค้าง ทั้งหมดถูกครอบด้วย try/catch เพื่อกันข้อผิดพลาดและใช้ 999 เป็นค่า fallback เมื่อเกิดปัญหา.
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-21 23-57-27}
+	\caption{ฟังก์ชันเลือกผู้เชี่ยวชาญที่เหมาะสมที่สุด}
+\end{figure}
+
+\indent ฟังก์ชัน selectBestExpert(experts) ใช้เลือกผู้เชี่ยวชาญที่ “ภาระงานน้อยที่สุด” จากลิสต์ที่ส่งเข้ามา โดยถ้าไม่มีข้อมูลจะคืน null ทันที จากนั้นภายใน try มันจะเรียก getExpertWorkload แบบขนานด้วย Promise.all เพื่อเติมฟิลด์ workload ให้ผู้เชี่ยวชาญแต่ละคน แล้วนำผลมาจัดเรียงตาม workload จากน้อยไปมาก เลือกคนแรกเป็นผู้ชนะ (selectedExpert) พร้อม log ชื่อกับภาระงานไว้เพื่อดีบัก ก่อนจะส่งคนนั้นกลับไป หากเกิดข้อผิดพลาดระหว่างคำนวณหรือเรียงลำดับ จะจับใน catch และ fallback ด้วยการสุ่มเลือกใครสักคนจากลิสต์เพื่อให้ระบบยังเดินต่อได้.
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-22 00-08-35}
+	\caption{ฟังก์ชันสร้าง assignment อัตโนมัติสำหรับ submission ที่ approved}
+\end{figure}
+
+\indent ฟังก์ชัน createAutoAssignment(submissionId, fishType) มีหน้าที่สร้างงานมอบหมายผู้เชี่ยวชาญให้กับคำส่ง (submission) แบบอัตโนมัติ โดยเริ่มตรวจสอบว่ามี submissionId หรือไม่ ถ้าไม่มีจะ log และคืน null แล้วจบ จากนั้นภายใน try จะ log รายละเอียด แล้วเรียก findMatchingExperts(fishType) เพื่อดึงรายชื่อผู้เชี่ยวชาญที่เหมาะกับชนิดปลา ถ้าไม่พบใครก็คืน null ต่อมาเรียก selectBestExpert(matchingExperts) เพื่อเลือกคนที่เหมาะที่สุด (เช่น ภาระงานน้อยสุด) ถ้าเลือกไม่ได้ก็คืน null สุดท้ายตรวจสอบในตาราง assignments ว่างานสำหรับ submission\_id นั้นกับผู้เชี่ยวชาญคนที่เลือก (evaluator\_id) ถูกสร้างไว้แล้วหรือไม่ ถ้ามีอยู่แล้วจะคืนงานเดิมทันที (กันการสร้างซ้ำ) ก่อนจะไปขั้นถัดไปของการสร้างงานใหม่ (ซึ่งอยู่นอกสไนเป็ตนี้).
+
+\vspace{\baselineskip}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Screenshot from 2025-09-22 00-17-40}
+	\caption{ฟังก์ชันสร้าง assignment อัตโนมัติสำหรับ submission ที่ approved ต่อส่วนที่ 4 และ 5}
+\end{figure}
+
+\indent ส่วนต่อของ createAutoAssignment นี้ทำหน้าที่ “สร้างงานมอบหมายจริง” และแจ้งเตือนผู้เชี่ยวชาญที่ถูกเลือก โดยเริ่มจาก insert แถวใหม่ลงตาราง assignments ด้วย submission\_id, evaluator\_id, สถานะเริ่มต้น pending และเวลา assigned\_at เป็น ISO string แล้วเรียก .select().single() เพื่อให้ได้เรคอร์ดที่สร้างกลับมาทันที หาก insert ผิดพลาดจะ log แล้วคืน null จากนั้นพยายามส่งการแจ้งเตือนพื้นฐานให้ผู้เชี่ยวชาญผ่าน NotificationService.createNotification โดยแปลง fishType เป็นชื่อแสดงผลด้วย getFishTypeDisplayName และชี้ลิงก์ไปคิวงาน (/expert/queue) หากแจ้งเตือนล้มเหลวจะเพียงเตือน (warn) แต่ไม่ให้กระทบการมอบหมายงาน สุดท้าย log หมายเลข assignment ที่สร้างสำเร็จและคืนออบเจ็กต์ newAssignment ทั้งบล็อกห่อด้วย try/catch เพื่อคืน null เมื่อเกิดข้อผิดพลาดใด ๆ ระหว่างกระบวนการ.
+
+\clearpage

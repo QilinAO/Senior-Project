@@ -1,0 +1,67 @@
+%==================== chapter3_29/1.tex ====================
+
+\clearpage
+\thispagestyle{plain}
+
+\begingroup
+\fontsize{16pt}{19.2pt}\selectfont
+\justifying
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.5pt
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0pt}
+
+
+
+\section*{ขั้นตอนการทำงานการทดลอง}
+\addcontentsline{toc}{section}{ขั้นตอนการทำงานการทดลอง}
+\indent ระบบประกอบด้วย 4 ขั้นหลัก: (1) Data Preparation สแกนและทำความสะอาดรูป แปลงเป็น RGB/Resize แบ่ง Train/Validation และคัดรูปซ้ำด้วย Average Hash ก่อนบันทึกเป็นโครงสร้าง ImageFolder; (2) Data Loading ใช้ SafeImageFolder+DataLoader พร้อม Augmentation (RandomResizedCrop, Flip, ColorJitter, Affine) และ Normalization; (3) Training ใช้ ResNet50 (pretrained ImageNet) เป็นตัวเข้ารหัสคุณลักษณะ ร่วมกับหัวจำแนก (GlobalAvgPool+Linear) เทรนด้วย AdamW, Label Smoothing, Warmup+Cosine LR, Gradient Accumulation/Clipping, AMP (bf16/fp16), และรองรับ torch.compile; (4) Evaluation \& Artifacts ประเมินด้วย Accuracy และ F1-macro พร้อมรายงาน per-class/Confusion Matrix และบันทึก best.pt, last.pt, metrics.json, class\_to\_idx.json.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{Image Classification Pipeline.drawio}
+	\caption{Image Classification Pipeline}
+\end{figure}
+
+\newpage
+
+\begin{sloppypar}
+	\begin{enumerate} %[start=4]  % เริ่มที่ 2 (ต่อจาก 1)
+		\item \textbf{รับข้อมูลเข้า:} รูปภาพถูกจัดมาจากหลายโฟลเดอร์ แทนแต่ละ “คลาส” ของป้ายกำกับ
+		\item \textbf{Data Preparation:}
+			\begin{enumerate}
+				\item เปิดรูปอย่างปลอดภัย แปลงเป็น RGB/ย่อขนาด
+				\item คัดรูปซ้ำแบบหยาบ (average hash)
+				\item แบ่งเป็นชุดฝึก (train) และตรวจสอบ (val)
+				\item บันทึกเป็นโครงสร้าง ImageFolder พร้อมสถิติการเตรียมข้อมูล
+			\end{enumerate}
+		\item \textbf{Data Loading:}
+			\begin{enumerate}
+			\item ใช้ SafeImageFolder + DataLoader โหลดรูปเป็นแบตช์
+			\item ใส่ augmentation สำหรับ train และ normaliz ให้เข้ากับ ImageNet
+			\end{enumerate}
+		\item \textbf{โมเดล (Encoder + Head):}
+			\begin{enumerate}
+			\item ResNet-50 (pretrained) ทำหน้าที่ “เข้ารหัส” สกัดฟีเจอร์จากภาพ
+			\item อัปเดตพารามิเตอร์ด้วย AdamW, ใช้ Warmup→Cosine LR
+			\item รองรับ AMP (bf16/fp16), gradient accumulation/clip, และ (ถ้ามี) torch.compile
+			\end{enumerate}
+		\item \textbf{การฝึก (Training Loop):}
+			\begin{enumerate}
+			\item คำนวณ Cross-Entropy (มี label smoothing)
+			\item ส่วนหัว (Global Avg Pool + Linear) แปลงฟีเจอร์เป็น logits ตามจำนวนคลาส
+			\end{enumerate}
+		\item \textbf{การประเมิน (Validation):}
+			\begin{enumerate}
+			\item วัด Accuracy, F1-macro, รายงานรายคลาส และ Confusion Matrix
+			\item ใช้ F1-macro เลือกโมเดลที่ดีที่สุด และตรวจ Early Stopping
+			\end{enumerate}
+		\item \textbf{อาร์ติแฟกต์/ผลลัพธ์:}
+					\begin{enumerate}
+			\item เก็บ best.pt, last.pt, metrics.json, class\_to\_idx.json
+			\item พร้อมนำไปทดสอบ/เสิร์ฟใช้งานต่อในขั้นตอนถัดไป
+		\end{enumerate}
+	\end{enumerate}
+\end{sloppypar}
+
+\clearpage
